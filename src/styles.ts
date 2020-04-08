@@ -5,6 +5,7 @@ export const theme = {
     background: '#33333C',
     subBackground: '#212121',
     main: '#72CEDE',
+    font: '#EBEBEB',
     borders: 'black',
   },
   sizes: {
