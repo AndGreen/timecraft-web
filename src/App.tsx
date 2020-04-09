@@ -37,12 +37,12 @@ const arrowCss = css`
 
 const arrowDownCss = css`
   ${arrowCss};
-  border-width: 5px 5px 0px 5px;
+  border-width: 4px 4px 0px 4px;
 `;
 
 const arrowUpCss = css`
   ${arrowCss};
-  border-width: 0px 5px 5px 5px;
+  border-width: 0px 4px 4px 4px;
 `;
 
 const ColorPicker = styled.div<ColorPickerProps>`
