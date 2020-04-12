@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { css, createGlobalStyle } from 'styled-components';
 
 export const theme = {
   colors: {
@@ -14,6 +14,15 @@ export const theme = {
     small: '13px',
   },
 };
+
+export const noselect = css`
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+`;
 
 export const Styles = createGlobalStyle`
   body {
