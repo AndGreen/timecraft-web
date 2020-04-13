@@ -3,6 +3,9 @@ import { DayBlockStyled } from './styles';
 
 type Props = {
   key: string;
+  active: boolean;
 };
 
-export const DayBlock = ({ key }: Props) => <DayBlockStyled key={key} />;
+export const DayBlock = ({ key, active }: Props) => (
+  <DayBlockStyled key={key} active={active} />
+);

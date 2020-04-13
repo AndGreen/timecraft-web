@@ -24,7 +24,10 @@ export const DayGrid = ({ days }: Props) => {
         <Line key={`day-line-${lineNum}`}>
           <Label>{linesLabels[lineNum]}</Label>
           {line.map((day, i) => (
-            <DayBlock key={`day-block-${lineNum}-${i}`} />
+            <DayBlock
+              key={`day-block-${lineNum}-${i}`}
+              active={lineNum === 2 && i === 4}
+            />
           ))}
         </Line>
       ))}
