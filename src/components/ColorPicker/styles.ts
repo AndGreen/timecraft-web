@@ -61,6 +61,7 @@ export const Component = styled.div<ColorPickerProps>`
     content: '';
     position: absolute;
     right: 12px;
+    top: 50%;
     ${(p) => (p.active ? arrowUpCss : arrowDownCss)}
   }
 `;
