@@ -67,6 +67,7 @@ export const Component = styled.div<ColorPickerProps>`
 `;
 
 export const ColorList = styled.div`
+  z-index: 2;
   display: flex;
   flex-wrap: wrap;
   position: absolute;

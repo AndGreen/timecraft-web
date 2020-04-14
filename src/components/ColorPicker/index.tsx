@@ -1,21 +1,24 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { colors } from '../../types/colors';
+import { useReduxAction, useReduxState } from '../../utils/hooks';
+import { togglePickerStatusAction } from '../../reducers/colors';
 import { Wrapper, Component, ColorList, ColorBlock } from './styles';
 
 export const ColorPicker = () => {
-  const [isOpen, setOpen] = useState(false);
+  const isOpened = useReduxState('colors.isPickerOpened');
+  const togglePickerStatus = useReduxAction(togglePickerStatusAction);
 
   return (
     <Wrapper>
       <Component
-        active={isOpen}
+        active={isOpened}
         onClick={() => {
-          setOpen(!isOpen);
+          togglePickerStatus();
         }}
       >
         Color
       </Component>
-      {isOpen && (
+      {isOpened && (
         <ColorList>
           {Object.keys(colors).map((colorName) => (
             <ColorBlock key={colorName} color={colors[colorName]} />
