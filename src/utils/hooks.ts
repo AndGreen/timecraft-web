@@ -11,8 +11,9 @@ export function useReduxAction<T extends ReduxAction>(
   action: T,
 ): (...props: Parameters<T>) => void {
   const dispatch = useDispatch();
-  return (...props) => {
-    dispatch(action(props));
+  return (...props: Parameters<T>) => {
+    const [prop1] = props;
+    dispatch(action(prop1));
   };
 }
 

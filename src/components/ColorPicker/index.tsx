@@ -1,17 +1,25 @@
 import React from 'react';
 import { colors } from '../../types/colors';
+import { useSelector } from 'react-redux';
 import { useReduxAction, useReduxState } from '../../utils/hooks';
-import { togglePickerStatusAction } from '../../reducers/colors';
+import {
+  togglePickerStatusAction,
+  changeActiveColorAction,
+} from '../../reducers/colors';
+import { selectActiveColor, selectPickerStatus } from '../../selectors/colors';
 import { Wrapper, Component, ColorList, ColorBlock } from './styles';
 
 export const ColorPicker = () => {
-  const isOpened = useReduxState('colors.isPickerOpened');
+  const isOpened = useSelector(selectPickerStatus);
+  const activeColor = useSelector(selectActiveColor);
   const togglePickerStatus = useReduxAction(togglePickerStatusAction);
+  const changeActiveColor = useReduxAction(changeActiveColorAction);
 
   return (
     <Wrapper>
       <Component
-        active={isOpened}
+        opened={isOpened}
+        activeColor={activeColor}
         onClick={() => {
           togglePickerStatus();
         }}
@@ -21,9 +29,21 @@ export const ColorPicker = () => {
       {isOpened && (
         <ColorList>
           {Object.keys(colors).map((colorName) => (
-            <ColorBlock key={colorName} color={colors[colorName]} />
+            <ColorBlock
+              key={colorName}
+              color={colors[colorName]}
+              onClick={() => {
+                changeActiveColor(colorName);
+                togglePickerStatus();
+              }}
+            />
           ))}
-          <ColorBlock />
+          <ColorBlock
+            onClick={() => {
+              changeActiveColor('background');
+              togglePickerStatus();
+            }}
+          />
         </ColorList>
       )}
     </Wrapper>
