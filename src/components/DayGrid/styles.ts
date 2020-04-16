@@ -1,10 +1,15 @@
 import styled from 'styled-components';
 import { theme } from '../../styles';
 
-export const DayGridWrapper = styled.div`
+type WrapperProps = {
+  opacity?: boolean;
+};
+
+export const DayGridWrapper = styled.div<WrapperProps>`
   display: table;
   border-collapse: collapse;
   margin-left: 12px;
+  opacity: ${(p) => p.opacity && 0.2};
 `;
 
 export const Line = styled.div`

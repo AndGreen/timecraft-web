@@ -1,6 +1,8 @@
 import React from 'react';
 import { DayGridWrapper, Line, Label } from './styles';
 import { DayBlock } from '../DayBlock';
+import { useSelector } from 'react-redux';
+import { selectPickerStatus } from '../../selectors/colors';
 
 type Props = {
   days: string[][];
@@ -18,8 +20,10 @@ const linesLabels = [
 ];
 
 export const DayGrid = ({ days }: Props) => {
+  const isPickerOpened = useSelector(selectPickerStatus);
+
   return (
-    <DayGridWrapper>
+    <DayGridWrapper opacity={isPickerOpened}>
       {days.map((line, lineNum) => (
         <Line key={`day-line-${lineNum}`}>
           <Label>{linesLabels[lineNum]}</Label>
