@@ -1,7 +1,7 @@
 import React from 'react';
 import { colors } from '../../types/colors';
 import { useSelector } from 'react-redux';
-import { useReduxAction, useReduxState } from '../../utils/hooks';
+import { useReduxAction } from '../../utils/redux';
 import {
   togglePickerStatusAction,
   changeActiveColorAction,
