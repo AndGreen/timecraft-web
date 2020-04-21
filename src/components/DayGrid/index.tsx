@@ -3,7 +3,7 @@ import { DayGridWrapper, Line, Label } from './styles';
 import { DayBlock } from '../DayBlock';
 import { useSelector } from 'react-redux';
 import { selectPickerStatus } from '../../selectors/colors';
-import { useCurrentBlockRerender } from '../../utils/time';
+import { useCurrentBlockRerender } from '../../utils/hooks';
 
 type Props = {
   days: string[][];

@@ -4,7 +4,15 @@ import { getCurrentBlockID } from '../utils/time';
 const blocksSlice = createSlice({
   name: 'blocks',
   initialState: { current: getCurrentBlockID() },
-  reducers: {},
+  reducers: {
+    updateCurrent: (state) => ({
+      ...state,
+      current: getCurrentBlockID(),
+    }),
+  },
 });
 
-export const { reducer: blocks } = blocksSlice;
+export const {
+  reducer: blocks,
+  actions: { updateCurrent: updateCurrentAction },
+} = blocksSlice;

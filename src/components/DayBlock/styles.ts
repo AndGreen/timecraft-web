@@ -9,6 +9,7 @@ export const DayBlockStyled = styled.div<Props>`
   width: 35px;
   height: 35px;
   display: table-cell;
+  box-sizing: border-box;
   border: 1px solid ${theme.colors.borders};
   &:nth-child(4),
   &:nth-child(7) {
@@ -22,8 +23,8 @@ export const DayBlockStyled = styled.div<Props>`
       &:before {
         left: -1px;
         top: -1px;
-        width: 35px;
-        height: 35px;
+        width: 34px;
+        height: 34px;
         display: block;
         content: '';
         position: absolute;

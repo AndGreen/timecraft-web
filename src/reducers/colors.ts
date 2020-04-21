@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 const colorSlice = createSlice({
   name: 'colors',
@@ -18,8 +18,10 @@ const colorSlice = createSlice({
   },
 });
 
-export const { reducer: colors } = colorSlice;
 export const {
-  togglePickerStatus: togglePickerStatusAction,
-  changeActiveColor: changeActiveColorAction,
-} = colorSlice.actions;
+  reducer: colors,
+  actions: {
+    togglePickerStatus: togglePickerStatusAction,
+    changeActiveColor: changeActiveColorAction,
+  },
+} = colorSlice;
