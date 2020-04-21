@@ -2,14 +2,14 @@ import styled from 'styled-components';
 import { theme } from '../../styles';
 
 type WrapperProps = {
-  opacity?: boolean;
+  disabled?: boolean;
 };
 
 export const DayGridWrapper = styled.div<WrapperProps>`
   display: table;
   border-collapse: collapse;
   margin-left: 12px;
-  opacity: ${(p) => p.opacity && 0.2};
+  opacity: ${(p) => p.disabled && 0.2};
 `;
 
 export const Line = styled.div`

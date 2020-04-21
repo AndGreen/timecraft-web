@@ -26,7 +26,7 @@ export const DayGrid = ({ days }: Props) => {
   useCurrentBlockRerender();
 
   return (
-    <DayGridWrapper opacity={isPickerOpened}>
+    <DayGridWrapper disabled={isPickerOpened}>
       {days.map((line, lineNum) => (
         <Line key={`day-line-${lineNum}`}>
           <Label>{linesLabels[lineNum]}</Label>
