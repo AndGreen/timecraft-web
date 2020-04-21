@@ -1,8 +1,10 @@
 import styled, { css } from 'styled-components';
 import { theme } from '../../styles';
+import { colors } from '../../types/colors';
 
 type Props = {
   active?: boolean;
+  color: string;
 };
 
 export const DayBlockStyled = styled.div<Props>`
@@ -10,6 +12,8 @@ export const DayBlockStyled = styled.div<Props>`
   height: 35px;
   display: table-cell;
   box-sizing: border-box;
+  cursor: pointer;
+  background-color: ${(p) => colors[p.color]};
   border: 1px solid ${theme.colors.borders};
   &:nth-child(4),
   &:nth-child(7) {
@@ -21,14 +25,14 @@ export const DayBlockStyled = styled.div<Props>`
     css`
       position: relative;
       &:before {
-        left: -1px;
-        top: -1px;
+        left: -2px;
+        top: -2px;
         width: 34px;
         height: 34px;
         display: block;
         content: '';
         position: absolute;
-        border: 1px solid #667d8a;
+        border: 2px solid ${theme.colors.font};
       }
     `}
 `;
