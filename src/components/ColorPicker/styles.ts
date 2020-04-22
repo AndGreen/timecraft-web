@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { theme, noselect } from '../../styles';
+import { theme } from '../../styles';
 import Cross from '../../assets/images/cross.svg';
 import { colors } from '../../types/colors';
 
@@ -50,7 +50,6 @@ export const Component = styled.div<ColorPickerProps>`
   color: ${theme.colors.font};
   font-weight: bold;
   cursor: pointer;
-  ${noselect}
 
   &:before {
     display: block;

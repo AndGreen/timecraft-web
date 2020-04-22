@@ -26,6 +26,7 @@ export const noselect = css`
 
 export const Styles = createGlobalStyle`
   body {
+    ${noselect};
     margin: 0;
     font-family: 'Roboto Mono', monospace;
     font-size: ${theme.sizes.font};
