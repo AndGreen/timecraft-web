@@ -7,6 +7,7 @@ import { DayGrid } from './components/DayGrid';
 import { Page } from './components/Page';
 import { Title } from './components/Title';
 import { RootReducer } from './reducers';
+import { loadState, saveState } from './utils/localstorage';
 
 const numOnLines = 8;
 const numOfBlocksInLine = 9;
@@ -19,7 +20,15 @@ for (let i = 0; i < numOnLines; i++) {
   }
 }
 
-const store = configureStore({ reducer: RootReducer });
+const store = configureStore({
+  reducer: RootReducer,
+  preloadedState: loadState(),
+});
+
+store.subscribe(() => {
+  const { colors } = store.getState().blocks;
+  saveState({ blocks: { colors } });
+});
 
 function App() {
   return (
