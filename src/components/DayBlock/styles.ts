@@ -27,7 +27,7 @@ export const DayBlockStyled = styled.div<Props>`
       &:before {
         left: -2px;
         top: -2px;
-        width: 34px;
+        width: 33px;
         height: 34px;
         display: block;
         content: '';
