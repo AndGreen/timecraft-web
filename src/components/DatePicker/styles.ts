@@ -28,7 +28,59 @@ const crossCss = css`
 
 export const Wrapper = styled.div`
   position: relative;
-  width: 235px;
+  & input {
+    padding: 0 0 0 12px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 119px;
+    background: none;
+    border: 1px solid ${theme.colors.borders};
+    height: 36px;
+    font-size: ${theme.sizes.font};
+    font-family: 'Roboto Mono';
+    font-weight: normal;
+    font-weight: bold;
+    color: ${theme.colors.font};
+  }
+  & input::placeholder {
+    color: ${theme.colors.font};
+  }
+
+  .DayPickerInput-Overlay {
+    background: ${theme.colors.background};
+    border: 1px solid ${theme.colors.borders};
+    box-shadow: none;
+    color: ${theme.colors.font};
+  }
+  .DayPickerInput-OverlayWrapper {
+    left: -153px;
+    top: -1px;
+  }
+  .DayPickerInput-OverlayWrapper:before {
+    right: -152px;
+    /* top: 0px; */
+    display: block;
+    width: 131px;
+    height: 1px;
+    content: '';
+    position: absolute;
+    background: ${theme.colors.background};
+    z-index: 3;
+  }
+  .DayPicker-Day--today {
+    color: ${theme.colors.background};
+    background: ${theme.colors.font};
+  }
+  .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
+    background-color: ${theme.colors.main};
+    color: ${theme.colors.background};
+  }
+  .DayPicker:not(.DayPicker--interactionDisabled)
+    .DayPicker-Day:not(.DayPicker-Day--today):not(.DayPicker-Day--disabled):not(.DayPicker-Day--selected):not(.DayPicker-Day--outside):hover {
+    // todo: theme.colors.font to rgba converter
+    background-color: rgba(255, 255, 255, 0.1);
+    color: ${theme.colors.font};
+  }
 `;
 
 type ColorPickerProps = {

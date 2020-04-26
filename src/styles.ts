@@ -35,4 +35,11 @@ export const Styles = createGlobalStyle`
     background-color: ${theme.colors.background};
     border-top: 12px solid ${theme.colors.subBackground};
   }
+  
+  input:focus,
+  select:focus,
+  textarea:focus,
+  button:focus {
+      outline: none;
+  }
 `;
