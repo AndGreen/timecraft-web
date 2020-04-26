@@ -2,23 +2,7 @@ import styled, { css } from 'styled-components';
 import { theme } from '../../styles';
 import Cross from '../../assets/images/cross.svg';
 import { colors } from '../../types/colors';
-
-const arrowCss = css`
-  border-color: ${theme.colors.font} transparent;
-  border-style: solid;
-  height: 0px;
-  width: 0px;
-`;
-
-const arrowDownCss = css`
-  ${arrowCss};
-  border-width: 4px 4px 0px 4px;
-`;
-
-const arrowUpCss = css`
-  ${arrowCss};
-  border-width: 0px 4px 4px 4px;
-`;
+import { arrowUpCss, arrowDownCss } from '../Icons/arrow';
 
 const crossCss = css`
   background-color: ${theme.colors.borders};
@@ -28,7 +12,7 @@ const crossCss = css`
 
 export const Wrapper = styled.div`
   position: relative;
-  width: 235px;
+  width: 245px;
 `;
 
 type ColorPickerProps = {
@@ -76,6 +60,7 @@ export const Component = styled.div<ColorPickerProps>`
 `;
 
 export const ColorList = styled.div`
+  width: 390px;
   z-index: 2;
   display: flex;
   flex-wrap: wrap;

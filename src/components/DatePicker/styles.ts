@@ -29,8 +29,8 @@ const crossCss = css`
 export const Wrapper = styled.div`
   position: relative;
   & input {
+    border-radius: 0;
     padding: 0 0 0 12px;
-    font-weight: bold;
     cursor: pointer;
     width: 119px;
     background: none;
@@ -38,12 +38,20 @@ export const Wrapper = styled.div`
     height: 36px;
     font-size: ${theme.sizes.font};
     font-family: 'Roboto Mono';
-    font-weight: normal;
     font-weight: bold;
     color: ${theme.colors.font};
   }
   & input::placeholder {
     color: ${theme.colors.font};
+  }
+
+  &:after {
+    display: block;
+    content: '';
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    ${arrowDownCss || arrowDownCss}
   }
 
   .DayPickerInput-Overlay {
