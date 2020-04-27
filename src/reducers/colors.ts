@@ -1,16 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { RootState } from './index';
 
 const colorSlice = createSlice({
   name: 'colors',
   initialState: {
-    isPickerOpened: false as boolean,
     active: '' as string,
   },
   reducers: {
-    togglePickerStatus: (state) => ({
-      ...state,
-      isPickerOpened: !state.isPickerOpened,
-    }),
     changeActiveColor: (state, action: { type: string; payload: string }) => ({
       ...state,
       active: action.payload,
@@ -20,8 +16,7 @@ const colorSlice = createSlice({
 
 export const {
   reducer: colors,
-  actions: {
-    togglePickerStatus: togglePickerStatusAction,
-    changeActiveColor: changeActiveColorAction,
-  },
+  actions: { changeActiveColor: changeActiveColorAction },
 } = colorSlice;
+
+export const selectActiveColor = (state: RootState) => state.colors.active;

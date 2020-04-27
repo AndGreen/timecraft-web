@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getCurrentBlockID } from '../utils/time';
+import { RootState } from './index';
 
 const blocksSlice = createSlice({
   name: 'blocks',
@@ -31,3 +32,7 @@ export const {
     setBlockColor: setBlockColorAction,
   },
 } = blocksSlice;
+
+export const selectCurrentBlockId = (state: RootState) => state.blocks.current;
+export const selectBlockColor = (id: number) => (state: RootState) =>
+  state.blocks.colors[id];

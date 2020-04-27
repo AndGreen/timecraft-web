@@ -2,7 +2,7 @@ import React from 'react';
 import { DayGridWrapper, Line, Label } from './styles';
 import { DayBlock } from '../DayBlock';
 import { useSelector } from 'react-redux';
-import { selectPickerStatus } from '../../selectors/colors';
+import { selectOpenedPickerName } from '../../reducers/picker';
 import { useCurrentBlockRerender } from '../../utils/hooks';
 
 type Props = {
@@ -21,7 +21,8 @@ const linesLabels = [
 ];
 
 export const DayGrid = ({ days }: Props) => {
-  const isPickerOpened = useSelector(selectPickerStatus);
+  const openedPicker = useSelector(selectOpenedPickerName);
+  const isPickerOpened = openedPicker !== '';
 
   useCurrentBlockRerender();
 

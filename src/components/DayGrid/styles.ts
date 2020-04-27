@@ -10,6 +10,7 @@ export const DayGridWrapper = styled.div<WrapperProps>`
   border-collapse: collapse;
   margin-left: 12px;
   opacity: ${(p) => p.disabled && 0.2};
+  z-index: 1;
 `;
 
 export const Line = styled.div`

@@ -1,38 +1,39 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import DayPickerInput from 'react-day-picker/DayPickerInput';
 import { colors } from '../../types/colors';
 import { useReduxAction } from '../../utils/redux';
+import { Wrapper, Component, StyledDayPicker } from './styles';
+import DayPicker from 'react-day-picker';
 import {
-  togglePickerStatusAction,
-  changeActiveColorAction,
-} from '../../reducers/colors';
-import { selectActiveColor, selectPickerStatus } from '../../selectors/colors';
-import { Wrapper, Component, ColorList, ColorBlock } from './styles';
+  selectOpenedPickerName,
+  togglePickerNameAction,
+} from '../../reducers/picker';
 
 export const DatePicker = () => {
-  const isOpened = useSelector(selectPickerStatus);
-  const activeColor = useSelector(selectActiveColor);
-  const togglePickerStatus = useReduxAction(togglePickerStatusAction);
-  const changeActiveColor = useReduxAction(changeActiveColorAction);
+  const pickerName = 'date';
+  const openedPicker = useSelector(selectOpenedPickerName);
+  const togglePickerStatus = useReduxAction(togglePickerNameAction);
+  const isOpened = openedPicker === pickerName;
 
   return (
     <Wrapper>
-      <DayPickerInput
-        format="DD/MM/YYYY"
-        // placeholder={`${formatDate(new Date())}`}
-        keepFocus={false}
-      />
+      <Component
+        opened={isOpened}
+        onClick={() => {
+          togglePickerStatus(pickerName);
+        }}
+      >
+        Day
+      </Component>
+      {isOpened && (
+        <StyledDayPicker>
+          <DayPicker
+            showOutsideDays={true}
+            // placeholder={`${formatDate(new Date())}`}
+            // keepFocus={false}
+          />
+        </StyledDayPicker>
+      )}
     </Wrapper>
   );
 };
-
-// <Component
-//   opened={isOpened}
-//   activeColor={activeColor}
-//   onClick={() => {
-//     togglePickerStatus();
-//   }}
-// >
-//   Color
-// </Component>

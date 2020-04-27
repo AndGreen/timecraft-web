@@ -1,9 +1,12 @@
 import React from 'react';
 import { DayBlockStyled } from './styles';
 import { useSelector } from 'react-redux';
-import { selectBlockColor, selectCurrentBlockId } from '../../selectors/blocks';
-import { selectActiveColor } from '../../selectors/colors';
-import { setBlockColorAction } from '../../reducers/blocks';
+import {
+  setBlockColorAction,
+  selectBlockColor,
+  selectCurrentBlockId,
+} from '../../reducers/blocks';
+import { selectActiveColor } from '../../reducers/colors';
 import { useReduxAction } from '../../utils/redux';
 
 type Props = {
