@@ -5,6 +5,9 @@ import { arrowDownCss, arrowUpCss } from '../Icons/arrow';
 export const Wrapper = styled.div`
   position: relative;
   width: 128px;
+  div {
+    outline: none;
+  }
   & input {
     border-radius: 0;
     padding: 0 0 0 12px;

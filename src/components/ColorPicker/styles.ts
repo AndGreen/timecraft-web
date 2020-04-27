@@ -60,12 +60,14 @@ export const Component = styled.div<ColorPickerProps>`
 `;
 
 export const ColorList = styled.div`
-  width: 390px;
+  width: 384px;
+  margin-top: -1px;
   z-index: 2;
   display: flex;
   flex-wrap: wrap;
   position: absolute;
   border-left: 1px solid black;
+  border-top: 1px solid black;
 `;
 
 type ColorBlockProps = {
@@ -79,8 +81,8 @@ export const ColorBlock = styled.div<ColorBlockProps>`
   display: inline-block;
   position: relative;
   box-sizing: border-box;
-  width: 48.63px;
-  height: 48.5px;
+  width: 48px;
+  height: 48px;
   border-right: 1px solid black;
   border-bottom: 1px solid black;
   background-color: ${(p) => backgroundColor(p)};
