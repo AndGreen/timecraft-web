@@ -29,8 +29,8 @@ const store = configureStore({
 });
 
 store.subscribe(() => {
-  const { colors } = store.getState().blocks;
-  saveState({ blocks: { colors } });
+  const { archive } = store.getState().days;
+  saveState({ days: { archive } });
 });
 
 const ActionBar = styled.div`

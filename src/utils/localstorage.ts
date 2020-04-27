@@ -11,9 +11,9 @@ export const loadState = () => {
     const parsedState = JSON.parse(serializedState);
     return {
       ...parsedState,
-      blocks: {
-        ...parsedState.blocks,
-        current: getCurrentBlockID(),
+      days: {
+        ...parsedState.days,
+        active: new Date().toLocaleDateString('en'),
       },
     };
   } catch (err) {
