@@ -20,11 +20,9 @@ export const DatePicker = () => {
   const selectedDay = new Date(selectedDayString);
 
   const handleDayClick = (day: Date) => {
-    setSelectedDay(String(day));
+    setSelectedDay(day.toLocaleDateString('en'));
     togglePickerStatus(pickerName);
   };
-
-  console.log(selectedDay);
 
   return (
     <Wrapper>
@@ -34,7 +32,7 @@ export const DatePicker = () => {
           togglePickerStatus(pickerName);
         }}
       >
-        {(selectedDay && selectedDay.toLocaleDateString()) || 'Day'}
+        {(selectedDay && selectedDay.toLocaleDateString('en')) || 'Day'}
       </Component>
       {isOpened && (
         <StyledDayPicker>

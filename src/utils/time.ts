@@ -15,3 +15,5 @@ export const getCurrentBlockID = () => {
 export const nearBlockDiff = dayjs
   .unix(Math.ceil(dayjs().unix() / blockDuration) * blockDuration)
   .diff(dayjs(), 'second');
+
+export const createEmptyColorsArr = () => [...new Array<string>(72)];
