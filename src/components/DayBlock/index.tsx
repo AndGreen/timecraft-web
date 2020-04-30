@@ -20,8 +20,9 @@ export const DayBlock = ({ active, id }: Props) => {
   const activeDay = useSelector(selectActiveDay);
 
   const futureDay = isFuture(activeDay);
+  const today = isToday(activeDay);
   const futureBlock = currentBlockId < id;
-  const future = futureDay || (!futureDay && futureBlock);
+  const future = futureDay || (today && futureBlock);
 
   return (
     <DayBlockStyled
@@ -29,7 +30,7 @@ export const DayBlock = ({ active, id }: Props) => {
         setBlockColor({ id, color: activeColor });
       }}
       future={future}
-      today={isToday(activeDay)}
+      today={today}
       color={currentBlockColor}
       active={currentBlockId === id}
     />
