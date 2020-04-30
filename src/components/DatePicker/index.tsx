@@ -8,6 +8,7 @@ import {
   togglePickerNameAction,
 } from '../../reducers/picker';
 import { selectActiveDay, setActiveDayAction } from '../../reducers/days';
+import { isToday } from '../../utils/time';
 
 export const DatePicker = () => {
   const pickerName = 'date';
@@ -18,6 +19,7 @@ export const DatePicker = () => {
   const setSelectedDay = useReduxAction(setActiveDayAction);
   const selectedDayString = useSelector(selectActiveDay);
   const selectedDay = new Date(selectedDayString);
+  const selectedDayLocale = selectedDay.toLocaleDateString('en');
 
   const handleDayClick = (day: Date) => {
     setSelectedDay(day.toLocaleDateString('en'));
@@ -32,7 +34,7 @@ export const DatePicker = () => {
           togglePickerStatus(pickerName);
         }}
       >
-        {(selectedDay && selectedDay.toLocaleDateString('en')) || 'Day'}
+        {isToday(selectedDayLocale) ? 'today' : selectedDayLocale}
       </Component>
       {isOpened && (
         <StyledDayPicker>
