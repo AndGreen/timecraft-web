@@ -1,10 +1,13 @@
 import styled, { css } from 'styled-components';
 import { theme } from '../../styles';
 import { colors } from '../../types/colors';
+import { hexToRGB } from '../../utils/colors';
 
 type Props = {
   active?: boolean;
   color: string;
+  future: boolean;
+  today: boolean;
 };
 
 export const DayBlockStyled = styled.div<Props>`
@@ -13,7 +16,6 @@ export const DayBlockStyled = styled.div<Props>`
   display: table-cell;
   box-sizing: border-box;
   cursor: pointer;
-  background-color: ${(p) => colors[p.color]};
   border: 1px solid ${theme.colors.borders};
   &:nth-child(4),
   &:nth-child(7) {
@@ -21,10 +23,26 @@ export const DayBlockStyled = styled.div<Props>`
   }
 
   ${(p) =>
+    p.future &&
+    css`
+      background: repeating-linear-gradient(
+        45deg,
+        ${theme.colors.background} 2px,
+        ${theme.colors.background} 3px,
+        transparent 0,
+        transparent 8px
+      );
+    `}
+  
+  background-color: ${(p) =>
+    p.future && p.color ? hexToRGB(colors[p.color], 0.8) : colors[p.color]};
+
+  ${(p) =>
     p.active &&
     css`
       position: relative;
       &:before {
+        z-index: 1;
         left: -2px;
         top: -2px;
         width: 33px;
@@ -32,7 +50,7 @@ export const DayBlockStyled = styled.div<Props>`
         display: block;
         content: '';
         position: absolute;
-        border: 2px solid ${theme.colors.font};
+        border: 2px ${p.today ? 'solid' : 'dashed'} ${theme.colors.font};
       }
-    `}
+    `};
 `;
