@@ -7,7 +7,6 @@ type Props = {
   active?: boolean;
   color: string;
   future: boolean;
-  today: boolean;
 };
 
 export const DayBlockStyled = styled.div<Props>`
@@ -50,7 +49,7 @@ export const DayBlockStyled = styled.div<Props>`
         display: block;
         content: '';
         position: absolute;
-        border: 2px ${p.today ? 'solid' : 'dashed'} ${theme.colors.font};
+        border: 2px solid ${theme.colors.font};
       }
     `};
 `;
