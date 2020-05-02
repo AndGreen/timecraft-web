@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import styled from 'styled-components';
@@ -11,6 +11,12 @@ import { Title } from './components/Title';
 import { RootReducer } from './reducers';
 import { loadState, saveState } from './utils/localstorage';
 import { DatePicker } from './components/DatePicker';
+import {
+  FirebaseAppProvider,
+  useFirestoreDocData,
+  useFirestore,
+  SuspenseWithPerf,
+} from 'reactfire';
 
 const numOnLines = 8;
 const numOfBlocksInLine = 9;
@@ -22,6 +28,17 @@ for (let i = 0; i < numOnLines; i++) {
     days[i][j] = '';
   }
 }
+
+const firebaseConfig = {
+  apiKey: 'AIzaSyBMCEcHyeG9TPiwwiwjqab-feNG27_CJZs',
+  authDomain: 'smoothy-b4774.firebaseapp.com',
+  databaseURL: 'https://smoothy-b4774.firebaseio.com',
+  projectId: 'smoothy-b4774',
+  storageBucket: 'smoothy-b4774.appspot.com',
+  messagingSenderId: '909155581443',
+  appId: '1:909155581443:web:e6c6c37f392ac020d8d836',
+  measurementId: 'G-Q6J77CJYNM',
+};
 
 const store = configureStore({
   reducer: RootReducer,
@@ -44,24 +61,31 @@ const RightAction = styled.div``;
 
 function App() {
   return (
-    <Provider store={store}>
-      <Page
-        title={<Title>Smoothy</Title>}
-        action={
-          <ActionBar>
-            <LeftAction>
-              <ColorPicker />
-            </LeftAction>
-            <RightAction>
-              <DatePicker />
-            </RightAction>
-          </ActionBar>
-        }
-      >
-        <DayGrid days={days} />
-      </Page>
-      <Styles />
-    </Provider>
+    <FirebaseAppProvider firebaseConfig={firebaseConfig}>
+      <Provider store={store}>
+        <SuspenseWithPerf
+          fallback={<p>loading app...</p>}
+          traceId={'load-days-status'}
+        >
+          <Page
+            title={<Title>Smoothy</Title>}
+            action={
+              <ActionBar>
+                <LeftAction>
+                  <ColorPicker />
+                </LeftAction>
+                <RightAction>
+                  <DatePicker />
+                </RightAction>
+              </ActionBar>
+            }
+          >
+            <DayGrid days={days} />
+          </Page>
+        </SuspenseWithPerf>
+        <Styles />
+      </Provider>
+    </FirebaseAppProvider>
   );
 }
 
