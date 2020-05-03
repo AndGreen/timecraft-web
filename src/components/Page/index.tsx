@@ -5,7 +5,13 @@ import {
   PageTitle,
   PageActions,
   PageContent,
+  PageMenu,
+  PageMenuLeft,
+  PageMenuRight,
+  PageMenuItem,
 } from './styles';
+import { useSelector } from 'react-redux';
+import { selectSyncDate } from '../../reducers/user';
 
 type PageProps = {
   title: React.ReactNode;
@@ -13,12 +19,26 @@ type PageProps = {
   children: React.ReactNode;
 };
 
-export const Page = (props: PageProps) => (
-  <PageWrapper>
-    <PageHead>
-      <PageTitle>{props.title}</PageTitle>
-      <PageActions>{props.action}</PageActions>
-    </PageHead>
-    <PageContent>{props.children}</PageContent>
-  </PageWrapper>
-);
+export const Page = (props: PageProps) => {
+  const syncDate = useSelector(selectSyncDate);
+  return (
+    <PageWrapper>
+      <PageMenu>
+        <PageMenuLeft>
+          <PageMenuItem>
+            <b>Days</b>
+          </PageMenuItem>
+          <PageMenuItem style={{ opacity: 0.3 }}>Actions</PageMenuItem>
+        </PageMenuLeft>
+        <PageMenuRight>
+          <PageMenuItem>{syncDate}</PageMenuItem>
+        </PageMenuRight>
+      </PageMenu>
+      <PageHead>
+        <PageTitle>{props.title}</PageTitle>
+        <PageActions>{props.action}</PageActions>
+      </PageHead>
+      <PageContent>{props.children}</PageContent>
+    </PageWrapper>
+  );
+};
