@@ -24,7 +24,6 @@ export const DayBlock = ({ active, id }: Props) => {
   const futureBlock = currentBlockId < id;
   const future = futureDay || (today && futureBlock);
 
-  console.log(today && currentBlockId === id);
   return (
     <DayBlockStyled
       onClick={() => {
