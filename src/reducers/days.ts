@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from './index';
 import { createEmptyColorsArr } from '../utils/time';
+import { loadState } from '../utils/localstorage';
 
 interface Days {
   [key: string]: string[];
@@ -14,6 +15,7 @@ const daysSlice = createSlice({
     active: currentDay,
     archive: {
       [currentDay]: createEmptyColorsArr(),
+      ...loadState('days'),
     } as Days,
   },
   reducers: {

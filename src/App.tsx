@@ -9,7 +9,7 @@ import { DayGrid } from './components/DayGrid';
 import { Page } from './components/Page';
 import { Title } from './components/Title';
 import { RootReducer } from './reducers';
-import { loadState, saveState } from './utils/localstorage';
+import { saveState } from './utils/localstorage';
 import { DatePicker } from './components/DatePicker';
 
 const numOnLines = 8;
@@ -25,12 +25,11 @@ for (let i = 0; i < numOnLines; i++) {
 
 const store = configureStore({
   reducer: RootReducer,
-  preloadedState: loadState(),
 });
 
 store.subscribe(() => {
   const { archive } = store.getState().days;
-  saveState({ days: { archive } });
+  saveState('days', archive);
 });
 
 const ActionBar = styled.div`
