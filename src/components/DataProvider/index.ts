@@ -6,7 +6,7 @@ type Props = {
   children: React.ReactElement;
 };
 
-export const DataSync = ({ children }: Props) => {
+export const DataProvider = ({ children }: Props) => {
   const syncData = useReduxThunk(syncDataThunk);
 
   useEffect(() => {

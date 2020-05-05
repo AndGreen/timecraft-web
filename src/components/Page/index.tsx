@@ -5,14 +5,8 @@ import {
   PageTitle,
   PageActions,
   PageContent,
-  PageMenu,
-  PageMenuLeft,
-  PageMenuRight,
-  PageMenuItem,
 } from './styles';
-import { useSelector } from 'react-redux';
-import { selectSyncDate } from '../../reducers/user';
-import dayjs from 'dayjs';
+import { Menu } from '../Menu';
 
 type PageProps = {
   title: React.ReactNode;
@@ -21,23 +15,9 @@ type PageProps = {
 };
 
 export const Page = (props: PageProps) => {
-  const syncDate = useSelector(selectSyncDate);
-
   return (
     <PageWrapper>
-      <PageMenu>
-        <PageMenuLeft>
-          <PageMenuItem>
-            <b>Days</b>
-          </PageMenuItem>
-          <PageMenuItem style={{ opacity: 0.3 }}>Actions</PageMenuItem>
-        </PageMenuLeft>
-        <PageMenuRight>
-          <PageMenuItem>
-            {syncDate && dayjs(syncDate).format('DD/MM/YY hh:mm')}
-          </PageMenuItem>
-        </PageMenuRight>
-      </PageMenu>
+      <Menu />
       <PageHead>
         <PageTitle>{props.title}</PageTitle>
         <PageActions>{props.action}</PageActions>

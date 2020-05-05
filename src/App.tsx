@@ -1,6 +1,6 @@
 import React from 'react';
 import { configureStore } from '@reduxjs/toolkit';
-import { Provider } from 'react-redux';
+import { Provider, Provider as ReduxProvider } from 'react-redux';
 import styled from 'styled-components';
 import 'react-day-picker/lib/style.css';
 import { Styles } from './styles';
@@ -11,7 +11,9 @@ import { Title } from './components/Title';
 import { RootReducer } from './reducers';
 import { saveState } from './utils/localstorage';
 import { DatePicker } from './components/DatePicker';
-import { DataSync } from './components/DataSync';
+import { DataProvider } from './components/DataProvider';
+import { Auth0Provider, AuthProvider } from './components/AuthProvider';
+import config from './utils/auth0.json';
 
 const numOnLines = 8;
 const numOfBlocksInLine = 9;
@@ -48,26 +50,28 @@ const RightAction = styled.div``;
 
 function App() {
   return (
-    <Provider store={store}>
-      <DataSync>
-        <Page
-          title={<Title>Smoothy</Title>}
-          action={
-            <ActionBar>
-              <LeftAction>
-                <ColorPicker />
-              </LeftAction>
-              <RightAction>
-                <DatePicker />
-              </RightAction>
-            </ActionBar>
-          }
-        >
-          <DayGrid days={days} />
-        </Page>
-      </DataSync>
+    <ReduxProvider store={store}>
+      <DataProvider>
+        <AuthProvider>
+          <Page
+            title={<Title>Smoothy</Title>}
+            action={
+              <ActionBar>
+                <LeftAction>
+                  <ColorPicker />
+                </LeftAction>
+                <RightAction>
+                  <DatePicker />
+                </RightAction>
+              </ActionBar>
+            }
+          >
+            <DayGrid days={days} />
+          </Page>
+        </AuthProvider>
+      </DataProvider>
       <Styles />
-    </Provider>
+    </ReduxProvider>
   );
 }
 
