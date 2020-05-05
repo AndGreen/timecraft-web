@@ -51,8 +51,8 @@ const RightAction = styled.div``;
 function App() {
   return (
     <ReduxProvider store={store}>
-      <DataProvider>
-        <AuthProvider>
+      <AuthProvider>
+        <DataProvider>
           <Page
             title={<Title>Smoothy</Title>}
             action={
@@ -68,8 +68,8 @@ function App() {
           >
             <DayGrid days={days} />
           </Page>
-        </AuthProvider>
-      </DataProvider>
+        </DataProvider>
+      </AuthProvider>
       <Styles />
     </ReduxProvider>
   );

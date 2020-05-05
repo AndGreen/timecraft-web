@@ -22,4 +22,5 @@ export const Item = styled.div`
 
 export const Logout = styled.a`
   opacity: 0.5;
+  cursor: pointer;
 `;

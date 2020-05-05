@@ -31,7 +31,7 @@ export const Menu = () => {
         ) : (
           <Item>
             {!isAuthenticated && (
-              <a onClick={() => loginWithRedirect({})}>Login</a>
+              <a onClick={() => loginWithRedirect({})}>login</a>
             )}
 
             {isAuthenticated && (
