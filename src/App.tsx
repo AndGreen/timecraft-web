@@ -11,6 +11,7 @@ import { Title } from './components/Title';
 import { RootReducer } from './reducers';
 import { saveState } from './utils/localstorage';
 import { DatePicker } from './components/DatePicker';
+import { DataSync } from './components/DataSync';
 
 const numOnLines = 8;
 const numOfBlocksInLine = 9;
@@ -28,8 +29,12 @@ const store = configureStore({
 });
 
 store.subscribe(() => {
-  const { archive } = store.getState().days;
+  const {
+    days: { archive },
+    user: { sync_date },
+  } = store.getState();
   saveState('days', archive);
+  saveState('sync_date', sync_date);
 });
 
 const ActionBar = styled.div`
@@ -44,21 +49,23 @@ const RightAction = styled.div``;
 function App() {
   return (
     <Provider store={store}>
-      <Page
-        title={<Title>Smoothy</Title>}
-        action={
-          <ActionBar>
-            <LeftAction>
-              <ColorPicker />
-            </LeftAction>
-            <RightAction>
-              <DatePicker />
-            </RightAction>
-          </ActionBar>
-        }
-      >
-        <DayGrid days={days} />
-      </Page>
+      <DataSync>
+        <Page
+          title={<Title>Smoothy</Title>}
+          action={
+            <ActionBar>
+              <LeftAction>
+                <ColorPicker />
+              </LeftAction>
+              <RightAction>
+                <DatePicker />
+              </RightAction>
+            </ActionBar>
+          }
+        >
+          <DayGrid days={days} />
+        </Page>
+      </DataSync>
       <Styles />
     </Provider>
   );

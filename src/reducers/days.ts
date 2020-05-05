@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from './index';
 import { createEmptyColorsArr } from '../utils/time';
 import { loadState } from '../utils/localstorage';
+import { syncDataThunk } from './user';
 
 interface Days {
   [key: string]: string[];
@@ -45,6 +46,12 @@ const daysSlice = createSlice({
       };
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(syncDataThunk.fulfilled, (state, action) => ({
+      ...state,
+      archive: action.payload.data,
+    }));
+  },
 });
 
 export const {
@@ -58,3 +65,4 @@ export const {
 export const selectActiveDay = (state: RootState) => state.days.active;
 export const selectActiveDayColors = (state: RootState) =>
   state.days.archive[state.days.active];
+export const selectDaysArchive = (state: RootState) => state.days.archive;
