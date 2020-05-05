@@ -15,3 +15,5 @@ export const colors: Record<string, string> = {
   grey: '#9E9E9E',
   blueGrey: '#667D8A',
 };
+
+export const removedColor = 'removed';

@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import { theme } from '../../styles';
 import Cross from '../../assets/images/cross.svg';
-import { colors } from '../../types/colors';
+import { colors, removedColor } from '../../types/colors';
 import { arrowUpCss, arrowDownCss } from '../Icons/arrow';
 
 const crossCss = css`
@@ -21,7 +21,7 @@ type ColorPickerProps = {
 };
 
 const getCrossColor = (activeColor?: string) =>
-  activeColor && activeColor !== 'background'
+  activeColor && activeColor !== removedColor
     ? colors[activeColor]
     : theme.colors.font;
 
@@ -45,7 +45,7 @@ export const Component = styled.div<ColorPickerProps>`
     left: 12px;
     top: 12px;
 
-    ${(p) => p.activeColor === 'background' && crossCss};
+    ${(p) => p.activeColor === removedColor && crossCss};
     background-color: ${(p) => getCrossColor(p.activeColor)};
   }
 

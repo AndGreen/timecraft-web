@@ -1,5 +1,5 @@
 import React from 'react';
-import { colors } from '../../types/colors';
+import { colors, removedColor } from '../../types/colors';
 import { useSelector } from 'react-redux';
 import { useReduxAction } from '../../utils/redux';
 import {
@@ -46,7 +46,7 @@ export const ColorPicker = () => {
           ))}
           <ColorBlock
             onClick={() => {
-              changeActiveColor('background');
+              changeActiveColor(removedColor);
               togglePickerStatus(pickerName);
             }}
           />
