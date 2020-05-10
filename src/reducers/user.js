@@ -1,36 +1,37 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { userPullDataQuery, userPushDataQuery, request } from '../api/graphql';
+import { pullData as pullDataRest, pushData } from '../api/firebase';
 import { removedColor } from '../types/colors';
+
+function timeout(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
 export const syncDataThunk = createAsyncThunk(
   'user/data/sync',
-  async (customSync, ThunkAPI) => {
+  async (_, ThunkAPI) => {
     // 1 pull
-    const pullData = await request(userPullDataQuery);
-    const { data } = pullData.users[0];
+    const pullData = await pullDataRest();
+    const { data } = pullData.data();
 
+    // Todo add automerge
     // 2 merge
     const state = ThunkAPI.getState();
     const { archive } = state.days;
-    // Todo: move data merge to hasura action
-    const mergedData = { ...archive, ...data };
-    Object.keys(data).forEach((key) => {
-      if (archive[key]) {
-        mergedData[key] = archive[key].map((block, i) => {
-          if (block === removedColor) return null;
-          if (mergedData[key][i]) return mergedData[key][i];
-          return block;
-        });
-      }
-    });
 
+    const mergedData = { ...archive, ...data };
+    data &&
+      Object.keys(data).forEach((key) => {
+        if (archive[key]) {
+          mergedData[key] = archive[key].map((block, i) => {
+            if (block === removedColor) return null;
+            if (mergedData[key][i]) return mergedData[key][i];
+            return block || null;
+          });
+        }
+      });
     // 3 push
-    const response = await request(userPushDataQuery, {
-      data: mergedData,
-      sync_date: new Date(),
-    });
-    const { sync_date } = response.update_users.returning[0];
-    return { data: mergedData, sync_date };
+    await pushData(mergedData);
+    return { data: mergedData, sync_date: String(new Date()) };
   },
 );
 
@@ -40,10 +41,11 @@ const userSlice = createSlice({
     sync_date: '',
   },
   reducers: {},
-  extraReducers: (builder) => {
-    builder.addCase(syncDataThunk.fulfilled, (state, action) => {
-      state.sync_date = action.payload.sync_date;
-    });
+  extraReducers: {
+    [syncDataThunk.fulfilled]: (state, action) => ({
+      ...state,
+      sync_date: action.payload && action.payload.sync_date,
+    }),
   },
 });
 

@@ -1,7 +1,11 @@
 // src/react-auth0-spa.js
 import React, { useState, useEffect, useContext } from 'react';
 import createAuth0Client from '@auth0/auth0-spa-js';
-import config from '../../utils/auth0.json';
+
+const config = {
+  domain: 'dev-2jguugld.eu.auth0.com',
+  clientId: '4p9BVdqBnn9G3TAh7ulPIjm71nIH7Qzy',
+};
 
 const DEFAULT_REDIRECT_CALLBACK = () =>
   window.history.replaceState({}, document.title, window.location.pathname);
