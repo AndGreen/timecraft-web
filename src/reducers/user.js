@@ -1,17 +1,16 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { RootState } from './index';
 import { userPullDataQuery, userPushDataQuery, request } from '../api/graphql';
 import { removedColor } from '../types/colors';
 
 export const syncDataThunk = createAsyncThunk(
   'user/data/sync',
-  async (customSync: object = {}, ThunkAPI) => {
+  async (customSync, ThunkAPI) => {
     // 1 pull
     const pullData = await request(userPullDataQuery);
     const { data } = pullData.users[0];
 
     // 2 merge
-    const state = ThunkAPI.getState() as RootState;
+    const state = ThunkAPI.getState();
     const { archive } = state.days;
     // Todo: move data merge to hasura action
     const mergedData = { ...archive, ...data };
@@ -53,4 +52,4 @@ export const {
   actions: {},
 } = userSlice;
 
-export const selectSyncDate = (state: RootState) => state.user.sync_date;
+export const selectSyncDate = (state) => state.user.sync_date;

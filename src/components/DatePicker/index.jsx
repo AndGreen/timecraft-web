@@ -21,7 +21,7 @@ export const DatePicker = () => {
   const selectedDay = new Date(selectedDayString);
   const selectedDayLocale = selectedDay.toLocaleDateString('en');
 
-  const handleDayClick = (day: Date) => {
+  const handleDayClick = (day) => {
     setSelectedDay(day.toLocaleDateString('en'));
     togglePickerStatus(pickerName);
   };

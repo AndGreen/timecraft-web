@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { theme } from '../../styles';
 import { arrowDownCss, arrowUpCss } from '../Icons/arrow';
 
@@ -70,12 +70,7 @@ export const Wrapper = styled.div`
   }
 `;
 
-type DatePickerProps = {
-  opened?: boolean;
-  activeColor?: string;
-};
-
-export const Component = styled.div<DatePickerProps>`
+export const Component = styled.div`
   position: relative;
   border: 1px solid ${theme.colors.borders};
   display: flex;

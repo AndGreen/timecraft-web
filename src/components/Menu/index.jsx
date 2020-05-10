@@ -4,7 +4,7 @@ import { useAuth0 } from '../AuthProvider';
 import { Loader } from '../Loader';
 
 export const Menu = () => {
-  const getInitials = (name: string) => {
+  const getInitials = (name) => {
     const words = name.split(' ');
     return words[0][0] + words[1][0];
   };

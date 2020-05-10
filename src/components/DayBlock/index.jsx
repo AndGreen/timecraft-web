@@ -7,12 +7,7 @@ import { selectActiveDay, setBlockColorAction } from '../../reducers/days';
 import { useReduxAction } from '../../utils/redux';
 import { isToday, isFuture } from '../../utils/time';
 
-type Props = {
-  active: boolean;
-  id: number;
-};
-
-export const DayBlock = ({ active, id }: Props) => {
+export const DayBlock = ({ active, id }) => {
   const setBlockColor = useReduxAction(setBlockColorAction);
   const currentBlockId = useSelector(selectCurrentBlockId);
   const currentBlockColor = useSelector(selectBlockColor(id));

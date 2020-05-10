@@ -5,10 +5,6 @@ import { useSelector } from 'react-redux';
 import { selectOpenedPickerName } from '../../reducers/picker';
 import { useCurrentBlockRerender } from '../../utils/hooks';
 
-type Props = {
-  days: string[][];
-};
-
 const linesLabels = [
   '00:00',
   '03:00',
@@ -20,7 +16,7 @@ const linesLabels = [
   '21:00',
 ];
 
-export const DayGrid = ({ days }: Props) => {
+export const DayGrid = ({ days }) => {
   const openedPicker = useSelector(selectOpenedPickerName);
   const isPickerOpened = openedPicker !== '';
 

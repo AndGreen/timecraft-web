@@ -3,13 +3,7 @@ import { theme } from '../../styles';
 import { colors } from '../../types/colors';
 import { hexToRGB } from '../../utils/colors';
 
-type Props = {
-  active?: boolean;
-  color: string;
-  future: boolean;
-};
-
-export const DayBlockStyled = styled.div<Props>`
+export const DayBlockStyled = styled.div`
   width: 35px;
   height: 35px;
   display: table-cell;

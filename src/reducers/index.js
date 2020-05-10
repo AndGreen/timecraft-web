@@ -12,5 +12,3 @@ export const RootReducer = combineReducers({
   picker,
   days,
 });
-
-export type RootState = ReturnType<typeof RootReducer>;

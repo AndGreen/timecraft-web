@@ -1,10 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { RootState } from './index';
 
 const pickerSlice = createSlice({
   name: 'pickers',
   initialState: {
-    name: '' as string,
+    name: '',
   },
   reducers: {
     togglePickerName: (state, action) => ({
@@ -19,4 +18,4 @@ export const {
   actions: { togglePickerName: togglePickerNameAction },
 } = pickerSlice;
 
-export const selectOpenedPickerName = (state: RootState) => state.picker.name;
+export const selectOpenedPickerName = (state) => state.picker.name;

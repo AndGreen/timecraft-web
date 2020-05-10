@@ -1,4 +1,4 @@
-import dayjs, { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
 import { default as isTodayExtension } from 'dayjs/plugin/isToday';
 dayjs.extend(isTodayExtension);
 
@@ -18,8 +18,8 @@ export const nearBlockDiff = dayjs
   .unix(Math.ceil(dayjs().unix() / blockDuration) * blockDuration)
   .diff(dayjs(), 'second');
 
-export const createEmptyColorsArr = () => [...new Array<string>(72)];
+export const createEmptyColorsArr = () => [...new Array(72)];
 
-export const isToday = (day: string) => dayjs(day).isToday();
-export const isPast = (day: string) => dayjs(day).isBefore(dayjs());
-export const isFuture = (day: string) => dayjs(day).isAfter(dayjs());
+export const isToday = (day) => dayjs(day).isToday();
+export const isPast = (day) => dayjs(day).isBefore(dayjs());
+export const isFuture = (day) => dayjs(day).isAfter(dayjs());

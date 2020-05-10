@@ -1,11 +1,7 @@
 import React from 'react';
 import { BouncingLoader } from './styles';
 
-type LoaderProps = {
-  color?: string;
-};
-
-export const Loader = ({ color }: LoaderProps) => (
+export const Loader = ({ color }) => (
   <BouncingLoader color={color}>
     <div />
     <div />

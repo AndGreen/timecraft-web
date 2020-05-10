@@ -1,6 +1,6 @@
 import React from 'react';
 import { configureStore } from '@reduxjs/toolkit';
-import { Provider, Provider as ReduxProvider } from 'react-redux';
+import { Provider as ReduxProvider } from 'react-redux';
 import styled from 'styled-components';
 import 'react-day-picker/lib/style.css';
 import { Styles } from './styles';
@@ -12,13 +12,12 @@ import { RootReducer } from './reducers';
 import { saveState } from './utils/localstorage';
 import { DatePicker } from './components/DatePicker';
 import { DataProvider } from './components/DataProvider';
-import { Auth0Provider, AuthProvider } from './components/AuthProvider';
-import config from './utils/auth0.json';
+import { AuthProvider } from './components/AuthProvider';
 
 const numOnLines = 8;
 const numOfBlocksInLine = 9;
 
-let days: string[][] = [];
+let days = [];
 for (let i = 0; i < numOnLines; i++) {
   days[i] = [];
   for (let j = 0; j < numOfBlocksInLine; j++) {

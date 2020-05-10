@@ -1,5 +1,4 @@
 import { request as graphqlRequest } from 'graphql-request';
-import { Variables } from 'graphql-request/dist/src/types';
 
 const userId = '2f2a0649-121d-45d3-9004-01236eaf3e20';
 
@@ -27,7 +26,7 @@ export const userPullDataQuery = `{
 }
 `;
 
-export const request = (query: string, variables?: Variables) => {
+export const request = (query, variables) => {
   return graphqlRequest(
     'https://smoothyapp.herokuapp.com/v1/graphql',
     query,

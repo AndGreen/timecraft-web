@@ -15,17 +15,12 @@ export const Wrapper = styled.div`
   width: 245px;
 `;
 
-type ColorPickerProps = {
-  opened?: boolean;
-  activeColor?: string;
-};
-
-const getCrossColor = (activeColor?: string) =>
+const getCrossColor = (activeColor) =>
   activeColor && activeColor !== removedColor
     ? colors[activeColor]
     : theme.colors.font;
 
-export const Component = styled.div<ColorPickerProps>`
+export const Component = styled.div`
   position: relative;
   border: 1px solid ${theme.colors.borders};
   display: flex;
@@ -70,14 +65,9 @@ export const ColorList = styled.div`
   border-top: 1px solid black;
 `;
 
-type ColorBlockProps = {
-  color?: string;
-};
+const backgroundColor = (p) => p.color || theme.colors.background;
 
-const backgroundColor = (p: ColorBlockProps) =>
-  p.color || theme.colors.background;
-
-export const ColorBlock = styled.div<ColorBlockProps>`
+export const ColorBlock = styled.div`
   display: inline-block;
   position: relative;
   box-sizing: border-box;

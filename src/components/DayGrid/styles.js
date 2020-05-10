@@ -1,11 +1,7 @@
 import styled from 'styled-components';
 import { theme } from '../../styles';
 
-type WrapperProps = {
-  disabled?: boolean;
-};
-
-export const DayGridWrapper = styled.div<WrapperProps>`
+export const DayGridWrapper = styled.div`
   display: table;
   border-collapse: collapse;
   margin-left: 12px;

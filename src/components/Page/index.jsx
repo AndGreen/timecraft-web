@@ -8,13 +8,7 @@ import {
 } from './styles';
 import { Menu } from '../Menu';
 
-type PageProps = {
-  title: React.ReactNode;
-  action: React.ReactNode;
-  children: React.ReactNode;
-};
-
-export const Page = (props: PageProps) => {
+export const Page = (props) => {
   return (
     <PageWrapper>
       <Menu />

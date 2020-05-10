@@ -1,12 +1,7 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from './index';
+import { createSlice } from '@reduxjs/toolkit';
 import { createEmptyColorsArr } from '../utils/time';
 import { loadState } from '../utils/localstorage';
 import { syncDataThunk } from './user';
-
-interface Days {
-  [key: string]: string[];
-}
 
 const currentDay = new Date().toLocaleDateString('en');
 
@@ -17,7 +12,7 @@ const daysSlice = createSlice({
     archive: {
       [currentDay]: createEmptyColorsArr(),
       ...loadState('days'),
-    } as Days,
+    },
   },
   reducers: {
     setActiveDay: (state, action) => {
@@ -31,10 +26,7 @@ const daysSlice = createSlice({
         },
       };
     },
-    setBlockColor: (
-      state,
-      action: PayloadAction<{ id: number; color: string }>,
-    ) => {
+    setBlockColor: (state, action) => {
       return {
         ...state,
         archive: {
@@ -46,11 +38,11 @@ const daysSlice = createSlice({
       };
     },
   },
-  extraReducers: (builder) => {
-    builder.addCase(syncDataThunk.fulfilled, (state, action) => ({
+  extraReducers: {
+    [syncDataThunk.fulfilled]: (state, action) => ({
       ...state,
       archive: action.payload.data,
-    }));
+    }),
   },
 });
 
@@ -62,7 +54,7 @@ export const {
   },
 } = daysSlice;
 
-export const selectActiveDay = (state: RootState) => state.days.active;
-export const selectActiveDayColors = (state: RootState) =>
+export const selectActiveDay = (state) => state.days.active;
+export const selectActiveDayColors = (state) =>
   state.days.archive[state.days.active];
-export const selectDaysArchive = (state: RootState) => state.days.archive;
+export const selectDaysArchive = (state) => state.days.archive;

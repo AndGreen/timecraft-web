@@ -1,13 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { RootState } from './index';
 
 const colorSlice = createSlice({
   name: 'colors',
   initialState: {
-    active: '' as string,
+    active: '',
   },
   reducers: {
-    changeActiveColor: (state, action: { type: string; payload: string }) => ({
+    changeActiveColor: (state, action) => ({
       ...state,
       active: action.payload,
     }),
@@ -19,4 +18,4 @@ export const {
   actions: { changeActiveColor: changeActiveColorAction },
 } = colorSlice;
 
-export const selectActiveColor = (state: RootState) => state.colors.active;
+export const selectActiveColor = (state) => state.colors.active;
