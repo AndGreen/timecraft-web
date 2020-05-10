@@ -6,18 +6,11 @@ const blocksSlice = createSlice({
   name: 'blocks',
   initialState: {
     current: getCurrentBlockID(),
-    colors: [...new Array(72)],
   },
   reducers: {
     updateCurrent: (state) => ({
       ...state,
       current: getCurrentBlockID(),
-    }),
-    setBlockColor: (state, action) => ({
-      ...state,
-      colors: state.colors.map((item, id) =>
-        id === action.payload.id ? action.payload.color : item,
-      ),
     }),
   },
 });
