@@ -19,7 +19,7 @@ export const syncDataThunk = createAsyncThunk(
     const { archive } = state.days;
 
     const mergedData = { ...archive, ...data };
-    data &&
+    if (data) {
       Object.keys(data).forEach((key) => {
         if (archive[key]) {
           mergedData[key] = archive[key].map((block, i) => {
@@ -29,6 +29,7 @@ export const syncDataThunk = createAsyncThunk(
           });
         }
       });
+    }
     // 3 push
     await pushData(mergedData);
     return { data: mergedData, sync_date: String(new Date()) };
@@ -38,9 +39,12 @@ export const syncDataThunk = createAsyncThunk(
 const userSlice = createSlice({
   name: 'user',
   initialState: {
+    profile: null,
     sync_date: '',
   },
-  reducers: {},
+  reducers: {
+    setProfile: (state, action) => ({ ...state, profile: action.payload }),
+  },
   extraReducers: {
     [syncDataThunk.fulfilled]: (state, action) => ({
       ...state,
@@ -51,7 +55,8 @@ const userSlice = createSlice({
 
 export const {
   reducer: user,
-  actions: {},
+  actions: { setProfile: setProfileAction },
 } = userSlice;
 
 export const selectSyncDate = (state) => state.user.sync_date;
+export const selectProfile = (state) => state.user.profile;

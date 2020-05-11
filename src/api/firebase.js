@@ -1,5 +1,6 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore';
+import 'firebase/auth';
 // import 'firebase/analytics';
 
 const firebaseConfig = {
@@ -28,3 +29,5 @@ export const pushData = async (data) =>
   });
 
 export const pullData = async () => db.collection('users').doc(userId).get();
+
+export { firebase };

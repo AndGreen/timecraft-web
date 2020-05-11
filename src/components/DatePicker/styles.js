@@ -4,7 +4,7 @@ import { arrowDownCss, arrowUpCss } from '../Icons/arrow';
 
 export const Wrapper = styled.div`
   position: relative;
-  width: 128px;
+  width: 127px;
   div {
     outline: none;
   }
