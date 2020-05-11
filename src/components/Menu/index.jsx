@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StyledMenu, MenuLeft, MenuRight, Item, Logout } from './styles';
-import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
-import { useAuth0 } from '../AuthProvider';
-import { Loader } from '../Loader';
 import { firebase } from '../../api/firebase';
 import { LoginPicker } from '../LoginPicker';
 import { useSelector } from 'react-redux';
-import { selectProfile } from '../../reducers/user';
+import { selectProfile, setProfileAction } from '../../reducers/user';
+import { useReduxAction } from '../../utils/redux';
 
 export const Menu = () => {
+  const setUserProfile = useReduxAction(setProfileAction);
   const profile = useSelector(selectProfile);
   const getInitials = (name) => {
     if (typeof name === 'string') {
@@ -34,7 +33,12 @@ export const Menu = () => {
           {profile && (
             <span>
               {getInitials(profile.name)}{' '}
-              <Logout onClick={() => firebase.auth().signOut()}>
+              <Logout
+                onClick={() => {
+                  setUserProfile(null);
+                  firebase.auth().signOut();
+                }}
+              >
                 (logout)
               </Logout>
             </span>

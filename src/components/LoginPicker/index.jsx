@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useReduxAction } from '../../utils/redux';
 import { Wrapper, Component, Popup, Title } from './styles';
@@ -19,7 +19,7 @@ export const LoginPicker = () => {
   const togglePickerStatus = useReduxAction(togglePickerNameAction);
   const isOpened = openedPicker === pickerName;
 
-  useState(() => {
+  useEffect(() => {
     firebase.auth().onAuthStateChanged((user, a, b) => {
       if (user) {
         const { uid, displayName, email, photoURL } = user;
@@ -29,11 +29,9 @@ export const LoginPicker = () => {
           email,
           photo: photoURL,
         });
-      } else {
-        setUserProfile(null);
       }
     });
-  });
+  }, []);
 
   const uiConfig = {
     signInFlow: 'popup',

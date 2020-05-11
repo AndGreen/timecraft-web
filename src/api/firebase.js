@@ -20,14 +20,21 @@ firebase.initializeApp(firebaseConfig);
 
 const db = firebase.firestore();
 
-const userId = '9GREF0tFmeJWiiSQvOtK';
+// const userId = '9GREF0tFmeJWiiSQvOtK';
 
-export const pushData = async (data) =>
-  db.collection('users').doc(userId).update({
-    data: data,
-    sync_date: new Date(),
-  });
+export const pullData = async (user) =>
+  db.collection('users').doc(user.id).get();
 
-export const pullData = async () => db.collection('users').doc(userId).get();
+export const pushData = async (user, data) => {
+  const { id, ...profile } = user;
+  return db
+    .collection('users')
+    .doc(id)
+    .set({
+      ...profile,
+      data,
+      sync_date: new Date(),
+    });
+};
 
 export { firebase };
