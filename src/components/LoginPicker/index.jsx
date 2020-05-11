@@ -9,7 +9,6 @@ import {
 import { firebase } from '../../api/firebase';
 import { setProfileAction } from '../../reducers/user';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
-import { getMobileOperatingSystem } from '../../utils/window';
 
 const firebaseui = require('firebaseui');
 
@@ -34,14 +33,8 @@ export const LoginPicker = () => {
     });
   }, []);
 
-  let signInFlow = 'popup';
-  // For iOS full screen apps we use the redirect auth mode.
-  if (getMobileOperatingSystem()) {
-    signInFlow = 'redirect';
-  }
-
   const uiConfig = {
-    signInFlow: signInFlow,
+    signInFlow: 'popup',
     signInSuccessUrl: '/signin',
     credentialHelper: firebaseui.auth.CredentialHelper.NONE,
     signInOptions: [
