@@ -33,7 +33,7 @@ export const pushData = async (user, data) => {
     .set({
       ...profile,
       data,
-      sync_date: new Date().toISOString(),
+      syncDate: new Date().toISOString(),
     });
 };
 
