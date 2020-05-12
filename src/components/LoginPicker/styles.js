@@ -82,6 +82,13 @@ export const Popup = styled.div`
   .mdl-progress.firebaseui-busy-indicator {
     top: 40px;
   }
+  @media (max-width: 480px) {
+    .firebaseui-card-header {
+      border-bottom: none;
+      margin-bottom: 16px;
+      padding: 16px 24px 0;
+    }
+  }
 `;
 
 export const Title = styled.div`
