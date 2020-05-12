@@ -32,10 +32,10 @@ const store = configureStore({
 store.subscribe(() => {
   const {
     days: { archive },
-    user: { sync_date },
+    user: { syncDate },
   } = store.getState();
   saveState('days', archive);
-  saveState('sync_date', sync_date);
+  saveState('syncDate', syncDate);
 });
 
 const ActionBar = styled.div`

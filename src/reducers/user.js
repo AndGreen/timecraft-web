@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { pullData as pullDataRest, pushData } from '../api/firebase';
-import { removedColor } from '../types/colors';
-import Automerge from 'automerge';
+import dayjs from 'dayjs';
+import { loadState } from '../utils/localstorage';
 
 export const syncDataThunk = createAsyncThunk(
   'user/data/sync',
@@ -11,20 +11,33 @@ export const syncDataThunk = createAsyncThunk(
 
     // 1 pull
     const pullData = await pullDataRest(profile);
-    const { data } = pullData.exists ? pullData.data() : {};
-    const { archive } = state.days;
-
-    const server = Automerge.from(data);
-    const client = Automerge.from(archive);
+    const { data: serverData, syncDate: serverSyncDate } = pullData.exists
+      ? pullData.data()
+      : {};
+    const { syncDate } = state.user;
+    const { archive: clientData } = state.days;
 
     // 2 merge
-    const mergedData = {};
-    const merged = Automerge.merge(server, client);
-    Object.keys(merged).map((day) => (mergedData[day] = merged[day]));
+    const noOtherDevicesChanges = dayjs(syncDate).isSame(dayjs(serverSyncDate));
+
+    let mergedData =
+      syncDate && noOtherDevicesChanges
+        ? { ...serverData, ...clientData }
+        : { ...serverData };
+
+    // if (noOtherDevicesChanges) {
+    // Object.keys(clientData).forEach((day) => {
+    //   mergedData[day] = clientData[day].map((clientBlock, i) => {
+    //     if (!clientBlock) return serverData[day][i];
+    //     return clientBlock;
+    //   });
+    // });
+    // }
 
     // 3 push
-    await pushData(profile, mergedData);
-    return { data: mergedData, sync_date: String(new Date()) };
+    const newSyncDate = new Date().toISOString();
+    await pushData(newSyncDate, profile, mergedData);
+    return { data: mergedData, syncDate: newSyncDate };
   },
 );
 
@@ -32,7 +45,7 @@ const userSlice = createSlice({
   name: 'user',
   initialState: {
     profile: null,
-    sync_date: '',
+    syncDate: loadState('syncDate'),
   },
   reducers: {
     setProfile: (state, action) => ({ ...state, profile: action.payload }),
@@ -40,7 +53,7 @@ const userSlice = createSlice({
   extraReducers: {
     [syncDataThunk.fulfilled]: (state, action) => ({
       ...state,
-      sync_date: action.payload && action.payload.sync_date,
+      syncDate: action.payload && action.payload.syncDate,
     }),
   },
 });
@@ -50,5 +63,5 @@ export const {
   actions: { setProfile: setProfileAction },
 } = userSlice;
 
-export const selectSyncDate = (state) => state.user.sync_date;
+export const selectSyncDate = (state) => state.user.syncDate;
 export const selectProfile = (state) => state.user.profile;

@@ -25,7 +25,7 @@ const db = firebase.firestore();
 export const pullData = async (user) =>
   db.collection('users').doc(user.id).get();
 
-export const pushData = async (user, data) => {
+export const pushData = async (syncDate, user, data) => {
   const { id, ...profile } = user;
   return db
     .collection('users')
@@ -33,7 +33,7 @@ export const pushData = async (user, data) => {
     .set({
       ...profile,
       data,
-      syncDate: new Date().toISOString(),
+      syncDate,
     });
 };
 
