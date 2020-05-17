@@ -53,7 +53,7 @@ function App() {
       <AuthProvider>
         <DataProvider>
           <Page
-            title={<Title>Smoothy</Title>}
+            title={<Title>Timecraft</Title>}
             action={
               <ActionBar>
                 <LeftAction>
