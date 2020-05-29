@@ -1,10 +1,17 @@
 import React from 'react';
-import { StyledMenu, MenuLeft, MenuRight, Item, Logout } from './styles';
 import { firebase } from '../../api/firebase';
 import { LoginPicker } from '../LoginPicker';
 import { useSelector } from 'react-redux';
 import { selectProfile, setProfileAction } from '../../reducers/user';
 import { useReduxAction } from '../../utils/redux';
+import {
+  StyledMenu,
+  MenuLeft,
+  MenuRight,
+  Item,
+  Logout,
+  AuthItem,
+} from './styles';
 
 export const Menu = () => {
   const setUserProfile = useReduxAction(setProfileAction);
@@ -22,16 +29,14 @@ export const Menu = () => {
   return (
     <StyledMenu>
       <MenuLeft>
-        <Item to="/">
-          <b>Days</b>
+        <Item exact to="/">Days</Item>
+        <Item to="/actions">Actions</Item>
+        <Item disabled to="/reports">
+          Reports
         </Item>
-        <Item to="/actions" >
-          Actions
-        </Item>
-        <Item disabled style={{ opacity: 0.3 }}>Reports</Item>
       </MenuLeft>
       <MenuRight>
-        <Item>
+        <AuthItem>
           {!profile && <LoginPicker />}
           {profile && (
             <span>
@@ -46,7 +51,7 @@ export const Menu = () => {
               </Logout>
             </span>
           )}
-        </Item>
+        </AuthItem>
       </MenuRight>
     </StyledMenu>
   );

@@ -1,5 +1,6 @@
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import styled, { css } from 'styled-components';
+import { NavLink } from 'react-router-dom';
 import { theme } from '../../styles';
 
 export const StyledMenu = styled.div`
@@ -13,14 +14,32 @@ export const MenuRight = styled.div`
   padding-right: 6px;
   font-size: 13px;
 `;
-export const Item = styled(Link)`
+
+const itemCss = css`
   display: inline;
   color: ${theme.colors.font};
-  &:not(:last-of-type) {
-    margin-right: 18px;
-  }
-  cursor: ${p => p.disabled && 'default'};
+  margin-right: 18px;
 `;
+
+export const StyledItem = styled.div`
+  ${itemCss};
+  opacity: 0.3;
+`;
+
+export const StyledLink = styled(NavLink)`
+  ${itemCss};
+`;
+
+export const AuthItem = styled.div`
+  color: ${theme.colors.font};
+`;
+
+export const Item = (props) =>
+  props.disabled ? (
+    <StyledItem {...props} />
+  ) : (
+    <StyledLink activeStyle={{ fontWeight: 'bold' }} {...props} />
+  );
 
 export const Logout = styled.a`
   opacity: 0.5;
