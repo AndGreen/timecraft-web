@@ -26,6 +26,7 @@ export const Menu = () => {
           <b>Days</b>
         </Item>
         <Item style={{ opacity: 0.3 }}>Actions</Item>
+        <Item style={{ opacity: 0.3 }}>Reports</Item>
       </MenuLeft>
       <MenuRight>
         <Item>
