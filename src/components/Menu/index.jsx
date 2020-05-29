@@ -22,11 +22,13 @@ export const Menu = () => {
   return (
     <StyledMenu>
       <MenuLeft>
-        <Item>
+        <Item to="/">
           <b>Days</b>
         </Item>
-        <Item style={{ opacity: 0.3 }}>Actions</Item>
-        <Item style={{ opacity: 0.3 }}>Reports</Item>
+        <Item to="/actions" >
+          Actions
+        </Item>
+        <Item disabled style={{ opacity: 0.3 }}>Reports</Item>
       </MenuLeft>
       <MenuRight>
         <Item>

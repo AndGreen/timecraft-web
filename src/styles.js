@@ -42,4 +42,8 @@ export const Styles = createGlobalStyle`
   button:focus {
       outline: none;
   }
+  
+  a {
+    text-decoration: none;
+  }
 `;
