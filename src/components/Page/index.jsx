@@ -14,7 +14,7 @@ export const Page = (props) => {
       <Menu />
       <PageHead>
         <PageTitle>{props.title}</PageTitle>
-        <PageActions>{props.action}</PageActions>
+        {props.action && <PageActions>{props.action}</PageActions>}
       </PageHead>
       <PageContent>{props.children}</PageContent>
     </PageWrapper>
