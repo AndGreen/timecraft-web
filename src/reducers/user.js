@@ -1,5 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { pullData as pullDataRest, pushData } from '../api/firebase';
+import {
+  pullData as pullDataRest,
+  pushData,
+  pullActions,
+} from '../api/firebase';
 import dayjs from 'dayjs';
 import { loadState } from '../utils/localstorage';
 
@@ -11,6 +15,12 @@ export const syncDataThunk = createAsyncThunk(
 
     // 1 pull
     const pullData = await pullDataRest(profile);
+    // const actions = await pullActions(profile);
+    // const actionsList = [];
+    // actions.forEach((i) => {
+    //   actionsList.push({ id: i.id, ...i.data() });
+    // });
+    // console.log(actionsList);
     const { data: serverData, syncDate: serverSyncDate } = pullData.exists
       ? pullData.data()
       : {};

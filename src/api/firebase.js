@@ -37,4 +37,7 @@ export const pushData = async (syncDate, user, data) => {
     });
 };
 
+export const pullActions = async (user) =>
+  db.collection('actions').where('userId', '==', user.id).get();
+
 export { firebase };

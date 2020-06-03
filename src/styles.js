@@ -36,6 +36,11 @@ export const Styles = createGlobalStyle`
     border-top: 12px solid ${theme.colors.subBackground};
   }
   
+  input { 
+    font-family: 'Roboto Mono', monospace;
+    font-size: ${theme.sizes.font};
+  }
+  
   input:focus,
   select:focus,
   textarea:focus,

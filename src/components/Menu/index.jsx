@@ -29,7 +29,9 @@ export const Menu = () => {
   return (
     <StyledMenu>
       <MenuLeft>
-        <Item exact to="/">Days</Item>
+        <Item exact to="/">
+          Days
+        </Item>
         <Item to="/actions">Actions</Item>
         <Item disabled to="/plan">
           Plan
