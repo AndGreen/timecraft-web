@@ -1,16 +1,23 @@
 import React, { useState } from 'react';
 import { isEmpty } from 'lodash';
 import { v4 as uuid } from 'uuid';
+import { useSelector } from 'react-redux';
 import { colors } from '../../types/colors';
+import { useReduxAction } from '../../utils/redux';
+import {
+  selectActions,
+  selectEditActionId,
+  setActionsReduce,
+  setEditActionIdReduce,
+} from '../../reducers/actions';
 import { Action } from './Action';
 import { StyledActionsList, NewActionButton } from './styles';
 
 export const ActionsList = () => {
-  const [editActionId, setEditActionId] = useState(null);
-  const [actions, setActions] = useState([
-    { id: '1', title: 'read bible', color: colors.brown },
-    { id: '2', title: 'sleep', color: colors.teal },
-  ]);
+  const editActionId = useSelector(selectEditActionId);
+  const setEditActionId = useReduxAction(setEditActionIdReduce);
+  const actions = useSelector(selectActions);
+  const setActions = useReduxAction(setActionsReduce);
 
   return (
     <>

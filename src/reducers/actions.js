@@ -1,12 +1,27 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { colors } from '../types/colors';
+import { loadState } from '../utils/localstorage';
 
 const actionsSlice = createSlice({
   name: 'actions',
   initialState: {
-    list: [{ id: '1', title: 'read bible', color: 'blue' }],
-    colors: { '1': 'red' },
+    list: [...loadState('actions')],
+    editActionId: null,
   },
-  reducers: {},
+  reducers: {
+    setEditActionIdReduce: (state, action) => {
+      state.editActionId = action.payload;
+    },
+    setActionsReduce: (state, action) => {
+      state.list = action.payload;
+    },
+  },
 });
 
-export const { reducer: actions } = actionsSlice;
+export const {
+  actions: { setEditActionIdReduce, setActionsReduce },
+  reducer: actions,
+} = actionsSlice;
+
+export const selectActions = (state) => state.actions.list;
+export const selectEditActionId = (state) => state.actions.editActionId;
