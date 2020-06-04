@@ -84,6 +84,7 @@ const Action = ({
 }) => {
   const isEdit = id === editActionId;
   const inputRef = useRef(null);
+  const [newAction, setNewAction] = useState({ id, title, color });
 
   useEffect(() => {
     if (isEdit) focusRef(inputRef);
@@ -103,7 +104,7 @@ const Action = ({
           </ActionMenuItem>
           <ActionMenuItem
             onClick={() => {
-              onSave();
+              onSave(newAction);
             }}
           >
             save
@@ -136,11 +137,22 @@ const Action = ({
   };
   return (
     <>
-      <StyledAction color={color}>
+      <StyledAction color={newAction.color}>
         {isEdit ? (
-          <ActionTitleInput ref={inputRef} defaultValue={title} />
+          <ActionTitleInput
+            onChange={(e) => {
+              setNewAction({ ...newAction, title: e.currentTarget.value });
+            }}
+            ref={inputRef}
+            defaultValue={title}
+            onKeyPress={(e) => {
+              if (e.key === 'Enter') {
+                onSave(newAction);
+              }
+            }}
+          />
         ) : (
-          title
+          newAction.title
         )}
         {renderMenu()}
       </StyledAction>
@@ -152,6 +164,7 @@ const Action = ({
               color={colors[colorName]}
               onClick={() => {
                 focusRef(inputRef);
+                setNewAction({ ...newAction, color: colors[colorName] });
               }}
             />
           ))}
@@ -190,7 +203,12 @@ export const Actions = () => {
                 setActions(actions.filter((action) => item.id !== action.id));
                 setEditActionId(null);
               }}
-              onSave={() => {
+              onSave={(newAction) => {
+                setActions(
+                  actions.map((action) => {
+                    return action.id === editActionId ? newAction : action;
+                  }),
+                );
                 setEditActionId(null);
               }}
             />
