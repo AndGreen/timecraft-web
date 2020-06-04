@@ -7,6 +7,7 @@ const actionsSlice = createSlice({
   initialState: {
     list: [...loadState('actions')],
     editActionId: null,
+    activeActionId: null,
   },
   reducers: {
     setEditActionIdReduce: (state, action) => {
@@ -15,13 +16,17 @@ const actionsSlice = createSlice({
     setActionsReduce: (state, action) => {
       state.list = action.payload;
     },
+    setActiveActionReduce: (state, action) => {
+      state.activeActionId = action.payload;
+    },
   },
 });
 
 export const {
-  actions: { setEditActionIdReduce, setActionsReduce },
+  actions: { setEditActionIdReduce, setActionsReduce, setActiveActionReduce },
   reducer: actions,
 } = actionsSlice;
 
 export const selectActions = (state) => state.actions.list;
 export const selectEditActionId = (state) => state.actions.editActionId;
+export const selectActiveActionId = (state) => state.actions.activeActionId;

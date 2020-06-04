@@ -1,12 +1,15 @@
 import styled from 'styled-components';
 import { theme } from '../../styles';
 
-export const StyledActionsList = styled.div``;
+export const StyledActionsList = styled.div`
+  border: 1px solid ${theme.colors.border};
+`;
+
 export const StyledAction = styled.div`
   position: relative;
   display: flex;
   justify-content: space-between;
-  border: 1px solid ${theme.colors.subBackground};
+  background: ${theme.colors.background};
   display: flex;
   height: 36px;
   align-items: center;
@@ -14,7 +17,7 @@ export const StyledAction = styled.div`
   color: ${theme.colors.font};
 
   :not(:first-child) {
-    border-top: none;
+    border-top: 1px solid ${theme.colors.subBackground};
   }
 
   &:before {
@@ -50,6 +53,7 @@ export const ActionTitleInput = styled.input`
 `;
 
 export const NewActionButton = styled.div`
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
