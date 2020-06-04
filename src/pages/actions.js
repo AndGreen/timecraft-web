@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { v4 as uuid } from 'uuid';
 import { Title } from '../components/Title';
 import { Page } from '../components/Page';
 import { theme } from '../styles';
@@ -29,7 +30,6 @@ const StyledAction = styled.div`
   align-items: center;
   padding-left: 36px;
   color: ${theme.colors.font};
-  cursor: pointer;
 
   :not(:first-child) {
     border-top: none;
@@ -54,8 +54,10 @@ const ActionMenu = styled.div`
 const ActionMenuItem = styled.div`
   padding-right: 15px;
   font-size: 12px;
-  color: ${theme.colors.main};
+  color: ${(p) => (p.cancelType ? theme.colors.contrast : theme.colors.main)};
+  cursor: pointer;
 `;
+
 const ActionTitleInput = styled.input`
   background: none;
   padding: 0;
@@ -65,28 +67,93 @@ const ActionTitleInput = styled.input`
   margin-right: 15px;
 `;
 
-const Action = ({ id, editActionId, color, title }) => {
+const focusRef = (ref) => {
+  ref.current && ref.current.focus();
+};
+
+const Action = ({
+  id,
+  editActionId,
+  color,
+  title,
+  isNew,
+  onEdit,
+  onCancel,
+  onRemove,
+  onSave,
+}) => {
   const isEdit = id === editActionId;
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (isEdit) focusRef(inputRef);
+  }, [isEdit]);
+
+  const renderMenu = () => {
+    if (editActionId && isEdit) {
+      return (
+        <ActionMenu>
+          <ActionMenuItem
+            onClick={() => {
+              isNew ? onRemove() : onCancel();
+            }}
+            cancelType
+          >
+            cancel
+          </ActionMenuItem>
+          <ActionMenuItem
+            onClick={() => {
+              onSave();
+            }}
+          >
+            save
+          </ActionMenuItem>
+        </ActionMenu>
+      );
+    }
+    if (!editActionId && !isEdit) {
+      return (
+        <ActionMenu>
+          <ActionMenuItem
+            onClick={() => {
+              onRemove();
+            }}
+            cancelType
+          >
+            remove
+          </ActionMenuItem>
+          <ActionMenuItem
+            onClick={() => {
+              onEdit();
+            }}
+          >
+            edit
+          </ActionMenuItem>
+        </ActionMenu>
+      );
+    }
+    return null;
+  };
   return (
     <>
       <StyledAction color={color}>
-        {isEdit ? <ActionTitleInput value={title} /> : title}
         {isEdit ? (
-          <ActionMenu>
-            <ActionMenuItem>cancel</ActionMenuItem>
-            <ActionMenuItem>save</ActionMenuItem>
-          </ActionMenu>
+          <ActionTitleInput ref={inputRef} defaultValue={title} />
         ) : (
-          <ActionMenu>
-            <ActionMenuItem>remove</ActionMenuItem>
-            <ActionMenuItem>edit</ActionMenuItem>
-          </ActionMenu>
+          title
         )}
+        {renderMenu()}
       </StyledAction>
       {isEdit && (
         <ColorList>
           {Object.keys(colors).map((colorName) => (
-            <ColorBlock key={colorName} color={colors[colorName]} />
+            <ColorBlock
+              key={colorName}
+              color={colors[colorName]}
+              onClick={() => {
+                focusRef(inputRef);
+              }}
+            />
           ))}
         </ColorList>
       )}
@@ -112,12 +179,41 @@ export const Actions = () => {
               key={item.id}
               color={item.color}
               title={item.title}
+              isNew={Boolean(item.isNew)}
+              onEdit={() => {
+                setEditActionId(item.id);
+              }}
+              onCancel={() => {
+                setEditActionId(null);
+              }}
+              onRemove={() => {
+                setActions(actions.filter((action) => item.id !== action.id));
+                setEditActionId(null);
+              }}
+              onSave={() => {
+                setEditActionId(null);
+              }}
             />
           ))}
         </ActionsList>
       )}
       {!editActionId && (
-        <NewActionButton border={isEmpty(actions)}>
+        <NewActionButton
+          border={isEmpty(actions)}
+          onClick={() => {
+            const newActionId = uuid();
+            setActions([
+              ...actions,
+              {
+                id: newActionId,
+                title: 'new action',
+                color: colors.grey,
+                isNew: true,
+              },
+            ]);
+            setEditActionId(newActionId);
+          }}
+        >
           + new actions
         </NewActionButton>
       )}

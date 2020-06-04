@@ -34,7 +34,7 @@ export const Menu = () => {
         </Item>
         <Item to="/actions">Actions</Item>
         <Item disabled to="/plan">
-          Plan
+          Budgets
         </Item>
         <Item disabled to="/reports">
           Reports
