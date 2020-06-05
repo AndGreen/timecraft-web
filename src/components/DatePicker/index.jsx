@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React, { useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { useReduxAction } from '../../utils/redux';
 import { Wrapper, Component, StyledDayPicker } from './styles';
-import DayPicker, { Modifier } from 'react-day-picker';
+import DayPicker  from 'react-day-picker';
 import {
   selectOpenedPickerName,
   togglePickerNameAction,
 } from '../../reducers/picker';
 import { selectActiveDay, setActiveDayAction } from '../../reducers/days';
 import { isToday } from '../../utils/time';
+import { usePickerCloseOutsideClick } from '../../utils/hooks';
 
 export const DatePicker = () => {
   const pickerName = 'date';
@@ -26,8 +27,11 @@ export const DatePicker = () => {
     togglePickerStatus(pickerName);
   };
 
+  const pickerRef = useRef(null);
+  usePickerCloseOutsideClick(pickerRef, pickerName);
+
   return (
-    <Wrapper>
+    <Wrapper ref={pickerRef}>
       <Component
         opened={isOpened}
         onClick={() => {

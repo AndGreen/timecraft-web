@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { find } from 'lodash';
@@ -13,10 +13,9 @@ import {
   setActiveActionReduce,
 } from '../../reducers/actions';
 import { Wrapper, Component, Popup, StyledActionsList } from './styles';
-import { Action } from '../ActionsList/Action';
 import { NewActionButton, StyledAction } from '../ActionsList/styles';
 import { isEmpty } from 'lodash';
-import { colors } from '../../types/colors';
+import { usePickerCloseOutsideClick } from '../../utils/hooks';
 
 const getColorListByActions = (actions) => {
   const colors = {};
@@ -35,15 +34,17 @@ export const ActionPicker = () => {
   const history = useHistory();
 
   const actions = useSelector(selectActions);
-  const colors = getColorListByActions(actions);
   const activeActionId = useSelector(selectActiveActionId);
   const setActiveAction = useReduxAction(setActiveActionReduce);
   const activeAction = activeActionId
     ? find(actions, 'id', activeActionId)
     : {};
 
+  const pickerRef = useRef(null);
+  usePickerCloseOutsideClick(pickerRef, pickerName);
+
   return (
-    <Wrapper>
+    <Wrapper ref={pickerRef}>
       <Component
         opened={isOpened}
         color={activeAction.color}
