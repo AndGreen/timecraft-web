@@ -116,7 +116,7 @@ export const Text = styled.div`
   white-space: nowrap;
   -ms-overflow-style: none;
   &::-webkit-scrollbar {
-    width: 0 !important;
+    display: none;
   }
   overflow: -moz-scrollbars-none;
 `;
