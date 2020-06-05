@@ -115,4 +115,8 @@ export const Text = styled.div`
   overflow: scroll;
   white-space: nowrap;
   -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    width: 0 !important;
+  }
+  overflow: -moz-scrollbars-none;
 `;
