@@ -1,7 +1,6 @@
 import React, { useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { find } from 'lodash';
 import { useReduxAction } from '../../utils/redux';
 import {
   togglePickerNameAction,
@@ -12,10 +11,22 @@ import {
   selectActiveAction,
   setActiveActionReduce,
 } from '../../reducers/actions';
-import { Wrapper, Component, Popup, StyledActionsList } from './styles';
+import {
+  Wrapper,
+  Component,
+  Popup,
+  StyledActionsList,
+  CancelBtn,
+} from './styles';
 import { NewActionButton, StyledAction } from '../ActionsList/styles';
 import { isEmpty } from 'lodash';
 import { usePickerCloseOutsideClick } from '../../utils/hooks';
+
+const emptyAction = {
+  id: 'removed',
+  color: null,
+  title: 'Empty action',
+};
 
 export const ActionPicker = () => {
   const pickerName = 'actions';
@@ -30,6 +41,7 @@ export const ActionPicker = () => {
   const setActiveAction = useReduxAction(setActiveActionReduce);
 
   const pickerRef = useRef(null);
+  const closeBtnRef = useRef(null);
   usePickerCloseOutsideClick(pickerRef, pickerName);
 
   return (
@@ -37,11 +49,22 @@ export const ActionPicker = () => {
       <Component
         opened={isOpened}
         color={activeAction.color}
-        onClick={() => {
-          togglePickerStatus(pickerName);
+        onClick={(e) => {
+          if (!closeBtnRef.current || !closeBtnRef.current.contains(e.target)) {
+            togglePickerStatus(pickerName);
+          }
         }}
       >
-        {activeAction.title || 'Choose action'}
+        {activeAction.title || emptyAction.title}
+        {!isEmpty(activeAction) && activeAction.id !== emptyAction.id && (
+          <CancelBtn
+            ref={closeBtnRef}
+            onClick={() => {
+              setActiveAction(emptyAction);
+              if (openedPicker) togglePickerStatus(pickerName);
+            }}
+          />
+        )}
       </Component>
       {isOpened && (
         <Popup>

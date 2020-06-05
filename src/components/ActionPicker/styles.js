@@ -1,6 +1,7 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { theme } from '../../styles';
 import { arrowUpCss, arrowDownCss } from '../Icons/arrow';
+import Cross from '../../assets/images/cross.svg';
 
 export const Wrapper = styled.div`
   position: relative;
@@ -26,7 +27,8 @@ export const Component = styled.div`
     height: 12px;
     left: 12px;
     top: 12px;
-    background: ${(p) => p.color || theme.colors.font};
+    background: ${(p) => p.color || theme.colors.background};
+    border: ${(p) => !p.color && `1px solid ${theme.colors.subBackground}`};
   }
 
   &:after {
@@ -54,4 +56,28 @@ export const StyledActionsList = styled.div`
   cursor: pointer;
   max-height: 313px;
   overflow: scroll;
+`;
+
+export const CancelBtn = styled.div`
+  width: 14px;
+  height: 14px;
+  right: 30px;
+  top: 12px;
+  position: absolute;
+
+  &:before,
+  &:after {
+    position: absolute;
+    content: ' ';
+    left: 6px;
+    height: 14px;
+    width: 2px;
+    background-color: ${theme.colors.font};
+  }
+  &:before {
+    transform: rotate(45deg);
+  }
+  &:after {
+    transform: rotate(-45deg);
+  }
 `;
