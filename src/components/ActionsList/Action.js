@@ -7,6 +7,7 @@ import {
   StyledAction,
   ColorList,
   ColorBlock,
+  Text
 } from './styles';
 
 const focusRef = (ref) => {
@@ -94,7 +95,7 @@ export const Action = ({
             }}
           />
         ) : (
-          newAction.title
+          <Text>{newAction.title}</Text>
         )}
         {renderMenu()}
       </StyledAction>

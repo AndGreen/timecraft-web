@@ -107,3 +107,11 @@ export const ColorBlock = styled.div`
     opacity: 0.2;
   }
 `;
+
+export const Text = styled.div`
+  max-width: 232px;
+  clear: both;
+  display: inline-block;
+  overflow: scroll;
+  white-space: nowrap;
+`;

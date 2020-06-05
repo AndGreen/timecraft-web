@@ -58,6 +58,15 @@ export const StyledActionsList = styled.div`
   overflow: scroll;
 `;
 
+export const Text = styled.div`
+  max-width: 155px;
+  clear: both;
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+`;
+
 export const CancelBtn = styled.div`
   width: 14px;
   height: 14px;

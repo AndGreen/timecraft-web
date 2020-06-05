@@ -17,6 +17,7 @@ import {
   Popup,
   StyledActionsList,
   CancelBtn,
+  Text
 } from './styles';
 import { NewActionButton, StyledAction } from '../ActionsList/styles';
 import { isEmpty } from 'lodash';
@@ -55,7 +56,7 @@ export const ActionPicker = () => {
           }
         }}
       >
-        {activeAction.title || emptyAction.title}
+        <Text>{activeAction.title || emptyAction.title}</Text>
         {!isEmpty(activeAction) && activeAction.id !== emptyAction.id && (
           <CancelBtn
             ref={closeBtnRef}
