@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { colors } from '../types/colors';
 import { loadState } from '../utils/localstorage';
 
 const actionsSlice = createSlice({
@@ -7,7 +6,7 @@ const actionsSlice = createSlice({
   initialState: {
     list: [...loadState('actions')],
     editActionId: null,
-    activeActionId: null,
+    active: {},
   },
   reducers: {
     setEditActionIdReduce: (state, action) => {
@@ -17,7 +16,7 @@ const actionsSlice = createSlice({
       state.list = action.payload;
     },
     setActiveActionReduce: (state, action) => {
-      state.activeActionId = action.payload;
+      state.active = action.payload;
     },
   },
 });
@@ -29,4 +28,4 @@ export const {
 
 export const selectActions = (state) => state.actions.list;
 export const selectEditActionId = (state) => state.actions.editActionId;
-export const selectActiveActionId = (state) => state.actions.activeActionId;
+export const selectActiveAction = (state) => state.actions.active;

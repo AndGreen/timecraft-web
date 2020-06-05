@@ -4,6 +4,7 @@ import { DayBlock } from '../DayBlock';
 import { useSelector } from 'react-redux';
 import { selectOpenedPickerName } from '../../reducers/picker';
 import { useCurrentBlockRerender } from '../../utils/hooks';
+import { selectActions } from '../../reducers/actions';
 
 const linesLabels = [
   '00:00',
@@ -16,9 +17,19 @@ const linesLabels = [
   '21:00',
 ];
 
+const getColorListByActions = (actions) => {
+  const colors = {};
+  actions.forEach((item) => {
+    colors[item.id] = item.color;
+  });
+  return colors;
+};
+
 export const DayGrid = ({ days }) => {
   const openedPicker = useSelector(selectOpenedPickerName);
   const isPickerOpened = openedPicker !== '';
+  const actions = useSelector(selectActions);
+  const colorsMap = getColorListByActions(actions);
 
   useCurrentBlockRerender();
 
@@ -32,6 +43,7 @@ export const DayGrid = ({ days }) => {
               id={lineNum * 9 + i}
               key={`day-block-${lineNum}-${i}`}
               active={lineNum === 2 && i === 4}
+              colorsMap={colorsMap}
             />
           ))}
         </Line>

@@ -9,21 +9,13 @@ import {
 } from '../../reducers/picker';
 import {
   selectActions,
-  selectActiveActionId,
+  selectActiveAction,
   setActiveActionReduce,
 } from '../../reducers/actions';
 import { Wrapper, Component, Popup, StyledActionsList } from './styles';
 import { NewActionButton, StyledAction } from '../ActionsList/styles';
 import { isEmpty } from 'lodash';
 import { usePickerCloseOutsideClick } from '../../utils/hooks';
-
-const getColorListByActions = (actions) => {
-  const colors = {};
-  actions.forEach((action) => {
-    colors[action.id] = actions.color;
-  });
-  return colors;
-};
 
 export const ActionPicker = () => {
   const pickerName = 'actions';
@@ -34,11 +26,8 @@ export const ActionPicker = () => {
   const history = useHistory();
 
   const actions = useSelector(selectActions);
-  const activeActionId = useSelector(selectActiveActionId);
+  const activeAction = useSelector(selectActiveAction);
   const setActiveAction = useReduxAction(setActiveActionReduce);
-  const activeAction = activeActionId
-    ? find(actions, 'id', activeActionId)
-    : {};
 
   const pickerRef = useRef(null);
   usePickerCloseOutsideClick(pickerRef, pickerName);
@@ -71,7 +60,7 @@ export const ActionPicker = () => {
                 <StyledAction
                   key={item.id}
                   onClick={() => {
-                    setActiveAction(item.id);
+                    setActiveAction(item);
                     togglePickerStatus(pickerName);
                   }}
                   color={item.color}
