@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { isEmpty } from 'lodash';
-import { v4 as uuid } from 'uuid';
 import { useSelector } from 'react-redux';
-import { colors } from '../../types/colors';
 import { useReduxAction } from '../../utils/redux';
+import { useCreateNewAction } from '../../utils/hooks';
 import {
   selectActions,
   selectEditActionId,
   setActionsReduce,
   setEditActionIdReduce,
+  updateActionsThunk,
 } from '../../reducers/actions';
 import { Action } from './Action';
 import { StyledActionsList, NewActionButton } from './styles';
@@ -16,8 +16,10 @@ import { StyledActionsList, NewActionButton } from './styles';
 export const ActionsList = () => {
   const editActionId = useSelector(selectEditActionId);
   const setEditActionId = useReduxAction(setEditActionIdReduce);
+  const updateActionsAsync = useReduxAction(updateActionsThunk);
   const actions = useSelector(selectActions);
   const setActions = useReduxAction(setActionsReduce);
+  const createNewAction = useCreateNewAction();
 
   return (
     <>
@@ -38,15 +40,19 @@ export const ActionsList = () => {
                 setEditActionId(null);
               }}
               onRemove={() => {
-                setActions(actions.filter((action) => item.id !== action.id));
+                const updatedActions = actions.filter(
+                  (action) => item.id !== action.id,
+                );
+                setActions(updatedActions);
+                updateActionsAsync(updatedActions);
                 setEditActionId(null);
               }}
               onSave={(newAction) => {
-                setActions(
-                  actions.map((action) => {
-                    return action.id === editActionId ? newAction : action;
-                  }),
-                );
+                const updatedActions = actions.map((action) => {
+                  return action.id === editActionId ? newAction : action;
+                });
+                setActions(updatedActions);
+                updateActionsAsync(updatedActions);
                 setEditActionId(null);
               }}
             />
@@ -57,17 +63,7 @@ export const ActionsList = () => {
         <NewActionButton
           border={isEmpty(actions)}
           onClick={() => {
-            const newActionId = uuid();
-            setActions([
-              ...actions,
-              {
-                id: newActionId,
-                title: 'new action',
-                color: colors.grey,
-                isNew: true,
-              },
-            ]);
-            setEditActionId(newActionId);
+            createNewAction();
           }}
         >
           + new actions

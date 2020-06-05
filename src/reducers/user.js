@@ -1,9 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import {
-  pullData as pullDataRest,
-  pushData,
-  pullActions,
-} from '../api/firebase';
+import { pullData as pullDataRest, pushData } from '../api/firebase';
 import dayjs from 'dayjs';
 import { loadState } from '../utils/localstorage';
 
@@ -15,16 +11,14 @@ export const syncDataThunk = createAsyncThunk(
 
     // 1 pull
     const pullData = await pullDataRest(profile);
-    // const actions = await pullActions(profile);
-    // const actionsList = [];
-    // actions.forEach((i) => {
-    //   actionsList.push({ id: i.id, ...i.data() });
-    // });
-    // console.log(actionsList);
-    const { data: serverData, syncDate: serverSyncDate } = pullData.exists
-      ? pullData.data()
-      : {};
+    const {
+      data: serverData,
+      syncDate: serverSyncDate,
+      actions,
+    } = pullData.exists ? pullData.data() : {};
+    const serverActions = actions || [];
     const { syncDate } = state.user;
+    const { list: clientActions } = state.actions;
     const { archive: clientData } = state.days;
 
     // 2 merge
@@ -34,6 +28,8 @@ export const syncDataThunk = createAsyncThunk(
       syncDate && noOtherDevicesChanges
         ? { ...serverData, ...clientData }
         : { ...serverData };
+
+    let mergedActions = serverActions || clientActions;
 
     // if (noOtherDevicesChanges) {
     // Object.keys(clientData).forEach((day) => {
@@ -47,7 +43,7 @@ export const syncDataThunk = createAsyncThunk(
     // 3 push
     const newSyncDate = new Date().toISOString();
     await pushData(newSyncDate, profile, mergedData);
-    return { data: mergedData, syncDate: newSyncDate };
+    return { data: mergedData, actions: mergedActions, syncDate: newSyncDate };
   },
 );
 

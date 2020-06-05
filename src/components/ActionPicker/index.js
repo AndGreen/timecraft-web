@@ -17,11 +17,14 @@ import {
   Popup,
   StyledActionsList,
   CancelBtn,
-  Text
+  Text,
 } from './styles';
 import { NewActionButton, StyledAction } from '../ActionsList/styles';
 import { isEmpty } from 'lodash';
-import { usePickerCloseOutsideClick } from '../../utils/hooks';
+import {
+  useCreateNewAction,
+  usePickerCloseOutsideClick,
+} from '../../utils/hooks';
 
 const emptyAction = {
   id: 'removed',
@@ -40,6 +43,7 @@ export const ActionPicker = () => {
   const actions = useSelector(selectActions);
   const activeAction = useSelector(selectActiveAction);
   const setActiveAction = useReduxAction(setActiveActionReduce);
+  const createNewAction = useCreateNewAction();
 
   const pickerRef = useRef(null);
   const closeBtnRef = useRef(null);
@@ -73,7 +77,9 @@ export const ActionPicker = () => {
             <NewActionButton
               border
               onClick={() => {
+                createNewAction();
                 history.push('/actions');
+                togglePickerStatus(pickerName);
               }}
             >
               + new actions

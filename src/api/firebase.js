@@ -25,19 +25,24 @@ const db = firebase.firestore();
 export const pullData = async (user) =>
   db.collection('users').doc(user.id).get();
 
-export const pushData = async (syncDate, user, data) => {
+export const pushData = async (syncDate, user, data, actions) => {
   const { id, ...profile } = user;
   return db
     .collection('users')
     .doc(id)
-    .set({
-      ...profile,
-      data,
-      syncDate,
-    });
+    .set(
+      {
+        ...profile,
+        data,
+        syncDate,
+      },
+      { merge: true },
+    );
 };
 
-export const pullActions = async (user) =>
-  db.collection('actions').where('userId', '==', user.id).get();
+export const updateActions = async (user, actions) => {
+  const { id } = user;
+  await db.collection('users').doc(id).set({ actions }, { merge: true });
+};
 
 export { firebase };

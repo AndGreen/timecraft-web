@@ -9,3 +9,12 @@ export const useReduxAction = (action) => {
 };
 
 export const useReduxState = (path) => useSelector((state) => get(state, path));
+
+export const useRedux = (selector, reducer) => {
+  const dispatch = useDispatch();
+  const getter = useSelector((state) => selector(state));
+  const setter = (...props) => {
+    dispatch(reducer(...props));
+  };
+  return [getter, setter];
+};
