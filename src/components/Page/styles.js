@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const PageWrapper = styled.div`
-  width: 390px;
+  width: 385px;
   margin: 0 auto;
 `;
 

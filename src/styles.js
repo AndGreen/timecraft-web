@@ -5,6 +5,7 @@ export const theme = {
     background: '#33333C',
     subBackground: '#212121',
     main: '#72CEDE',
+    contrast: '#E25241',
     font: '#EBEBEB',
     borders: 'black',
   },
@@ -34,6 +35,11 @@ export const Styles = createGlobalStyle`
     -moz-osx-font-smoothing: grayscale;
     background-color: ${theme.colors.background};
     border-top: 12px solid ${theme.colors.subBackground};
+  }
+  
+  input { 
+    font-family: 'Roboto Mono', monospace;
+    font-size: ${theme.sizes.font};
   }
   
   input:focus,

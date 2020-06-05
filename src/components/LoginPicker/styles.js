@@ -13,7 +13,7 @@ export const Popup = styled.div`
   margin-top: 100px;
   z-index: 3;
   position: absolute;
-  right: 0;
+  right: -6px;
   width: 390px;
   height: 500px;
   background: ${theme.colors.background};

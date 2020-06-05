@@ -15,7 +15,7 @@ const daysSlice = createSlice({
     },
   },
   reducers: {
-    setActiveDay: (state, action) => {
+    setActiveDayAction: (state, action) => {
       const selectedDay = action.payload;
       return {
         ...state,
@@ -26,15 +26,12 @@ const daysSlice = createSlice({
         },
       };
     },
-    setBlockColor: (state, action) => {
-      return {
-        ...state,
-        archive: {
-          ...state.archive,
-          [state.active]: state.archive[state.active].map((item, id) =>
-            id === action.payload.id ? action.payload.color : item,
-          ),
-        },
+    setBlockActionReduce: (state, action) => {
+      state.archive = {
+        ...state.archive,
+        [state.active]: state.archive[state.active].map((item, id) =>
+          id === action.payload.id ? action.payload.action : item,
+        ),
       };
     },
   },
@@ -48,13 +45,11 @@ const daysSlice = createSlice({
 
 export const {
   reducer: days,
-  actions: {
-    setActiveDay: setActiveDayAction,
-    setBlockColor: setBlockColorAction,
-  },
+  actions: { setActiveDayAction, setBlockActionReduce },
 } = daysSlice;
 
 export const selectActiveDay = (state) => state.days.active;
-export const selectActiveDayColors = (state) =>
+export const selectActiveDayActions = (state) =>
   state.days.archive[state.days.active];
-export const selectDaysArchive = (state) => state.days.archive;
+export const selectBlockAction = (id) => (state) =>
+  selectActiveDayActions(state)[id];

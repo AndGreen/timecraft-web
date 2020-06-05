@@ -14,6 +14,7 @@ export const colors = {
   brown: '#74564A',
   grey: '#9E9E9E',
   blueGrey: '#667D8A',
+  black: '#344047',
 };
 
 export const removedColor = 'removed';

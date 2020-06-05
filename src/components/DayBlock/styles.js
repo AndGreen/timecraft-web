@@ -25,10 +25,10 @@ export const DayBlockStyled = styled.div`
         transparent 0,
         transparent 8px
       );
-    `}
-  
+    `};
+
   background-color: ${(p) =>
-    p.future && p.color ? hexToRGB(colors[p.color], 0.8) : colors[p.color]};
+    p.future && p.color ? hexToRGB(p.color, 0.8) : p.color};
 
   ${(p) =>
     p.active &&

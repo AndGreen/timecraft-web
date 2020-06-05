@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { getCurrentBlockID } from '../utils/time';
-import { selectActiveDayColors } from './days';
 
 const blocksSlice = createSlice({
   name: 'blocks',
@@ -17,12 +16,7 @@ const blocksSlice = createSlice({
 
 export const {
   reducer: blocks,
-  actions: {
-    updateCurrent: updateCurrentAction,
-    setBlockColor: setBlockColorAction,
-  },
+  actions: { updateCurrent: updateCurrentAction },
 } = blocksSlice;
 
 export const selectCurrentBlockId = (state) => state.blocks.current;
-export const selectBlockColor = (id) => (state) =>
-  selectActiveDayColors(state)[id];

@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Title } from '../components/Title';
-import { ColorPicker } from '../components/ColorPicker';
 import { DatePicker } from '../components/DatePicker';
 import { DayGrid } from '../components/DayGrid';
 import { Page } from '../components/Page';
+import { ActionPicker } from '../components/ActionPicker';
 
 const numOnLines = 8;
 const numOfBlocksInLine = 9;
@@ -32,7 +32,7 @@ export const Day = () => (
     action={
       <ActionBar>
         <LeftAction>
-          <ColorPicker />
+          <ActionPicker />
         </LeftAction>
         <RightAction>
           <DatePicker />

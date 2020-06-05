@@ -1,17 +1,21 @@
 import React from 'react';
 import { DayBlockStyled } from './styles';
 import { useSelector } from 'react-redux';
-import { selectBlockColor, selectCurrentBlockId } from '../../reducers/blocks';
-import { selectActiveColor } from '../../reducers/colors';
-import { selectActiveDay, setBlockColorAction } from '../../reducers/days';
+import { selectCurrentBlockId } from '../../reducers/blocks';
+import {
+  selectActiveDay,
+  setBlockActionReduce,
+  selectBlockAction,
+} from '../../reducers/days';
 import { useReduxAction } from '../../utils/redux';
 import { isToday, isFuture } from '../../utils/time';
+import { selectActiveAction } from '../../reducers/actions';
 
-export const DayBlock = ({ active, id }) => {
-  const setBlockColor = useReduxAction(setBlockColorAction);
+export const DayBlock = ({ active, id, colorsMap }) => {
+  const setBlockAction = useReduxAction(setBlockActionReduce);
   const currentBlockId = useSelector(selectCurrentBlockId);
-  const currentBlockColor = useSelector(selectBlockColor(id));
-  const activeColor = useSelector(selectActiveColor);
+  const blockActionId = useSelector(selectBlockAction(id));
+  const activeAction = useSelector(selectActiveAction);
   const activeDay = useSelector(selectActiveDay);
 
   const futureDay = isFuture(activeDay);
@@ -22,10 +26,10 @@ export const DayBlock = ({ active, id }) => {
   return (
     <DayBlockStyled
       onClick={() => {
-        setBlockColor({ id, color: activeColor });
+        setBlockAction({ id, action: activeAction.id });
       }}
       future={future}
-      color={currentBlockColor}
+      color={colorsMap[blockActionId]}
       active={today && currentBlockId === id}
     />
   );

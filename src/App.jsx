@@ -19,7 +19,9 @@ store.subscribe(() => {
   const {
     days: { archive },
     user: { syncDate },
+    actions: { list },
   } = store.getState();
+  saveState('actions', list);
   saveState('days', archive);
   saveState('syncDate', syncDate);
 });
