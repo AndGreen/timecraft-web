@@ -114,4 +114,5 @@ export const Text = styled.div`
   display: inline-block;
   overflow: scroll;
   white-space: nowrap;
+  -ms-overflow-style: none;
 `;
