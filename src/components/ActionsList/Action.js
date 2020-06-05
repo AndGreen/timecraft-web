@@ -12,6 +12,7 @@ import {
 
 const focusRef = (ref) => {
   ref.current && ref.current.focus();
+  ref.current && ref.current.select();
 };
 
 export const Action = ({
