@@ -26,6 +26,13 @@ export const noselect = css`
 `;
 
 export const Styles = createGlobalStyle`
+  * {
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    overflow: -moz-scrollbars-none;∏
+  }
   body {
     ${noselect};
     margin: 0;
@@ -35,11 +42,6 @@ export const Styles = createGlobalStyle`
     -moz-osx-font-smoothing: grayscale;
     background-color: ${theme.colors.background};
     border-top: 12px solid ${theme.colors.subBackground};
-    -ms-overflow-style: none;
-    &::-webkit-scrollbar {
-      display: none;
-    }
-    overflow: -moz-scrollbars-none;
   }
   
   input { 
