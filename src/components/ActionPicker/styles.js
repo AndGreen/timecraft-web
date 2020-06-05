@@ -49,6 +49,7 @@ export const Popup = styled.div`
   flex-wrap: wrap;
   position: absolute;
   border: 1px solid black;
+  background: ${theme.colors.background};
 `;
 
 export const StyledActionsList = styled.div`
