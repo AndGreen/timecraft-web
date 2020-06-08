@@ -29,7 +29,7 @@ export const syncDataThunk = createAsyncThunk(
         ? { ...serverData, ...clientData }
         : { ...serverData };
 
-    let mergedActions = serverActions || clientActions;
+    let mergedActions = clientActions || serverActions;
 
     // if (noOtherDevicesChanges) {
     // Object.keys(clientData).forEach((day) => {
@@ -42,7 +42,7 @@ export const syncDataThunk = createAsyncThunk(
 
     // 3 push
     const newSyncDate = new Date().toISOString();
-    await pushData(newSyncDate, profile, mergedData);
+    await pushData(newSyncDate, profile, mergedData, mergedActions);
     return { data: mergedData, actions: mergedActions, syncDate: newSyncDate };
   },
 );

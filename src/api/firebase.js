@@ -35,6 +35,7 @@ export const pushData = async (syncDate, user, data, actions) => {
         ...profile,
         data,
         syncDate,
+        actions,
       },
       { merge: true },
     );
