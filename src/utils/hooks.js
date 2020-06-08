@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useCallback, useRef } from 'react';
 import { v4 as uuid } from 'uuid';
 import { updateCurrentAction } from '../reducers/blocks';
 import { useRedux, useReduxAction } from './redux';
@@ -68,3 +68,30 @@ export const useCreateNewAction = () => {
     setEditActionId(newActionId);
   };
 };
+
+export function useDoubleTap(callback, onSingleTap, threshold = 200) {
+  const timer = useRef(null);
+  const handler = useCallback(
+    (event) => {
+      if (!timer.current) {
+        timer.current = setTimeout(() => {
+          if (onSingleTap) {
+            onSingleTap(event);
+          }
+          timer.current = null;
+        }, threshold);
+      } else {
+        clearTimeout(timer.current);
+        timer.current = null;
+        callback && callback(event);
+      }
+    },
+    [callback, threshold, onSingleTap],
+  );
+
+  return callback
+    ? {
+        onClick: handler,
+      }
+    : {};
+}

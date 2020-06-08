@@ -10,6 +10,7 @@ import {
 import { useReduxAction } from '../../utils/redux';
 import { isToday, isFuture } from '../../utils/time';
 import { selectActiveAction } from '../../reducers/actions';
+import { useDoubleTap } from '../../utils/hooks';
 
 export const DayBlock = ({ active, id, colorsMap }) => {
   const setBlockAction = useReduxAction(setBlockActionReduce);
@@ -23,11 +24,21 @@ export const DayBlock = ({ active, id, colorsMap }) => {
   const futureBlock = currentBlockId < id;
   const future = futureDay || (today && futureBlock);
 
+  const onClick = useDoubleTap(
+    () => {
+      const hour = Math.floor(id / 3) * 3;
+      setBlockAction({ id: hour, action: activeAction.id });
+      setBlockAction({ id: hour + 1, action: activeAction.id });
+      setBlockAction({ id: hour + 2, action: activeAction.id });
+    },
+    () => {
+      setBlockAction({ id, action: activeAction.id });
+    },
+  );
+
   return (
     <DayBlockStyled
-      onClick={() => {
-        setBlockAction({ id, action: activeAction.id });
-      }}
+      {...onClick}
       future={future}
       color={colorsMap[blockActionId]}
       active={today && currentBlockId === id}
