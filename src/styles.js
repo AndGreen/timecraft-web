@@ -42,6 +42,7 @@ export const Styles = createGlobalStyle`
     -moz-osx-font-smoothing: grayscale;
     background-color: ${theme.colors.background};
     border-top: 12px solid ${theme.colors.subBackground};
+    touch-action: pan-x pan-y;
   }
   
   input { 
