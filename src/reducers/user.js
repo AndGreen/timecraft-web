@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { isEmpty } from 'lodash';
 import { pullData as pullDataRest, pushData } from '../api/firebase';
 import dayjs from 'dayjs';
 import { loadState } from '../utils/localstorage';
@@ -29,7 +30,7 @@ export const syncDataThunk = createAsyncThunk(
         ? { ...serverData, ...clientData }
         : { ...serverData };
 
-    let mergedActions = clientActions || serverActions;
+    let mergedActions = !isEmpty(serverActions) ? serverActions : clientActions;
 
     // if (noOtherDevicesChanges) {
     // Object.keys(clientData).forEach((day) => {
