@@ -10,7 +10,9 @@ export const getCurrentMinuteOfDay = () => {
 };
 
 export const getCurrentBlockID = () => {
-  const currentMinute = getCurrentMinuteOfDay();
+  // Todo: change app times to utc with offset
+  const offset = new Date().getTimezoneOffset() + 180;
+  const currentMinute = getCurrentMinuteOfDay() + offset;
   return Math.floor(currentMinute / 20);
 };
 
