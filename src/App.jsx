@@ -18,12 +18,12 @@ const store = configureStore({
 store.subscribe(() => {
   const {
     days: { archive },
-    user: { syncDate },
+    user: { lastEditDate },
     actions: { list },
   } = store.getState();
   saveState('actions', list);
   saveState('days', archive);
-  saveState('syncDate', syncDate);
+  saveState('lastEditDate', lastEditDate);
 });
 
 function App() {

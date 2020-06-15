@@ -4,47 +4,45 @@ import { pullData as pullDataRest, pushData } from '../api/firebase';
 import dayjs from 'dayjs';
 import { loadState } from '../utils/localstorage';
 
+const mergeData = (serverData, clientData) => {
+  return { ...serverData, ...clientData };
+};
+
 export const syncDataThunk = createAsyncThunk(
   'user/data/sync',
   async (_, ThunkAPI) => {
     const state = ThunkAPI.getState();
-    const { profile } = state.user;
-
+    const user = state.user.profile;
     // 1 pull
-    const pullData = await pullDataRest(profile);
-    const {
-      data: serverData,
-      syncDate: serverSyncDate,
-      actions,
-    } = pullData.exists ? pullData.data() : {};
+    const pullData = await pullDataRest(user);
+
+    const { data: serverData, syncDate, actions } = pullData.exists
+      ? pullData.data()
+      : {};
     const serverActions = actions || [];
-    const { syncDate } = state.user;
+
+    const { lastEditDate } = state.user;
     const { list: clientActions } = state.actions;
     const { archive: clientData } = state.days;
 
     // 2 merge
-    const noOtherDevicesChanges = dayjs(syncDate).isSame(dayjs(serverSyncDate));
+    let mergedData = { ...serverData };
 
-    let mergedData =
-      syncDate && noOtherDevicesChanges
-        ? { ...serverData, ...clientData }
-        : { ...serverData };
+    const hasChanges = dayjs(lastEditDate).isAfter(dayjs(syncDate));
 
+    Object.keys(clientData).forEach((day) => {
+      mergedData[day] = clientData[day].map((clientBlock, i) => {
+        const serverBlock = mergedData[day] ? mergedData[day][i] : null;
+        if (!clientBlock || (clientBlock && serverBlock && !hasChanges))
+          return serverBlock;
+        return clientBlock;
+      });
+    });
     let mergedActions = !isEmpty(serverActions) ? serverActions : clientActions;
 
-    // if (noOtherDevicesChanges) {
-    // Object.keys(clientData).forEach((day) => {
-    //   mergedData[day] = clientData[day].map((clientBlock, i) => {
-    //     if (!clientBlock) return serverData[day][i];
-    //     return clientBlock;
-    //   });
-    // });
-    // }
-
     // 3 push
-    const newSyncDate = new Date().toISOString();
-    await pushData(newSyncDate, profile, mergedData, mergedActions);
-    return { data: mergedData, actions: mergedActions, syncDate: newSyncDate };
+    await pushData(user, mergedData, mergedActions);
+    return { data: mergedData, actions: mergedActions };
   },
 );
 
@@ -52,16 +50,16 @@ const userSlice = createSlice({
   name: 'user',
   initialState: {
     profile: null,
-    syncDate: loadState('syncDate'),
+    lastEditDate: loadState('lastEditDate'),
   },
   reducers: {
     setProfile: (state, action) => ({ ...state, profile: action.payload }),
   },
   extraReducers: {
-    [syncDataThunk.fulfilled]: (state, action) => ({
-      ...state,
-      syncDate: action.payload && action.payload.syncDate,
-    }),
+    // Todo: import reducer type
+    'days/setBlockActionReduce': (state, action) => {
+      state.lastEditDate = new Date().toISOString();
+    },
   },
 });
 
@@ -70,5 +68,4 @@ export const {
   actions: { setProfile: setProfileAction },
 } = userSlice;
 
-export const selectSyncDate = (state) => state.user.syncDate;
 export const selectProfile = (state) => state.user.profile;

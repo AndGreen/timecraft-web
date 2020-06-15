@@ -20,12 +20,11 @@ firebase.initializeApp(firebaseConfig);
 
 const db = firebase.firestore();
 
-// const userId = '9GREF0tFmeJWiiSQvOtK';
-
 export const pullData = async (user) =>
   db.collection('users').doc(user.id).get();
 
-export const pushData = async (syncDate, user, data, actions) => {
+export const pushData = async (user, data, actions) => {
+  const syncDate = new Date().toISOString();
   const { id, ...profile } = user;
   return db
     .collection('users')

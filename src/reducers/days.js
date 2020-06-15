@@ -29,9 +29,12 @@ const daysSlice = createSlice({
     setBlockActionReduce: (state, action) => {
       state.archive = {
         ...state.archive,
-        [state.active]: state.archive[state.active].map((item, id) =>
-          id === action.payload.id ? action.payload.action : item,
-        ),
+        [state.active]: state.archive[state.active].map((item, id) => {
+          if (id === action.payload.id) {
+            return action.payload.action ? action.payload.action : 'removed';
+          }
+          return item;
+        }),
       };
     },
   },
