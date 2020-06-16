@@ -36,9 +36,7 @@ export const Menu = () => {
         <Item disabled to="/plan">
           Budgets
         </Item>
-        <Item disabled to="/reports">
-          Reports
-        </Item>
+        <Item to="/reports">Reports</Item>
       </MenuLeft>
       <MenuRight>
         <AuthItem>

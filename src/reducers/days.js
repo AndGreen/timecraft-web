@@ -56,3 +56,4 @@ export const selectActiveDayActions = (state) =>
   state.days.archive[state.days.active];
 export const selectBlockAction = (id) => (state) =>
   selectActiveDayActions(state)[id];
+export const selectArchive = (state) => state.days.archive;

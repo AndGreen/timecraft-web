@@ -25,3 +25,12 @@ export const createEmptyColorsArr = () => [...new Array(72)];
 export const isToday = (day) => dayjs(day).isToday();
 export const isPast = (day) => dayjs(day).isBefore(dayjs());
 export const isFuture = (day) => dayjs(day).isAfter(dayjs());
+
+export const getLastWeekDays = () => {
+  let days = [...new Array(7)];
+  return days.map((i, key) =>
+    dayjs()
+      .day(key - 7)
+      .format('M/D/YYYY'),
+  );
+};

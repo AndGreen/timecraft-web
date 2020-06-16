@@ -8,8 +8,9 @@ import { RootReducer } from './reducers';
 import { saveState } from './utils/localstorage';
 import { DataProvider } from './components/DataProvider';
 import { AuthProvider } from './components/AuthProvider';
-import { Day } from './pages';
+import { Day } from './pages/days';
 import { Actions } from './pages/actions';
+import { Reports } from './pages/reports';
 
 const store = configureStore({
   reducer: RootReducer,
@@ -33,12 +34,9 @@ function App() {
         <DataProvider>
           <Router>
             <Switch>
-              <Route path="/actions">
-                <Actions />
-              </Route>
-              <Route path="/">
-                <Day />
-              </Route>
+              <Route path="/actions" component={Actions} />
+              <Route path="/reports" component={Reports} />
+              <Route path="/" component={Day} />
             </Switch>
           </Router>
         </DataProvider>
