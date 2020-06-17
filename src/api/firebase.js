@@ -45,4 +45,9 @@ export const updateActions = async (user, actions) => {
   await db.collection('users').doc(id).set({ actions }, { merge: true });
 };
 
+export const updateBudget = async (user, budget) => {
+  const { id } = user;
+  await db.collection('users').doc(id).set({ budget });
+};
+
 export { firebase };

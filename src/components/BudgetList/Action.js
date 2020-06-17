@@ -2,6 +2,7 @@ import React from 'react';
 import { StyledAction, Text, ActionBudgetInput, Shares } from './styles';
 import {
   selectDailyBudget,
+  updateBudgetThunk,
   updateDailyBudgetReduce,
 } from '../../reducers/budgets';
 import { useReduxAction } from '../../utils/redux';
@@ -9,6 +10,7 @@ import { useSelector } from 'react-redux';
 
 export const Action = ({ id, color, title }) => {
   const updateBudget = useReduxAction(updateDailyBudgetReduce);
+  const updateBudgetAsync = useReduxAction(updateBudgetThunk);
   const budget = useSelector(selectDailyBudget);
   return (
     <>
@@ -24,6 +26,7 @@ export const Action = ({ id, color, title }) => {
               const number = Number(e.target.value);
               if (!number) e.target.value = 0;
               updateBudget({ id, value: e.target.value });
+              updateBudgetAsync();
             }}
             defaultValue={budget[id] || 0}
             onKeyPress={(e) => {

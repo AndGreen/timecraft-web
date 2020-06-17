@@ -4,10 +4,6 @@ import { pullData as pullDataRest, pushData } from '../api/firebase';
 import dayjs from 'dayjs';
 import { loadState } from '../utils/localstorage';
 
-const mergeData = (serverData, clientData) => {
-  return { ...serverData, ...clientData };
-};
-
 export const syncDataThunk = createAsyncThunk(
   'user/data/sync',
   async (_, ThunkAPI) => {
@@ -16,14 +12,16 @@ export const syncDataThunk = createAsyncThunk(
     // 1 pull
     const pullData = await pullDataRest(user);
 
-    const { data: serverData, syncDate, actions } = pullData.exists
+    const { data: serverData, syncDate, actions, budget } = pullData.exists
       ? pullData.data()
       : {};
     const serverActions = actions || [];
+    const serverBudget = budget || {};
 
     const { lastEditDate } = state.user;
     const { list: clientActions } = state.actions;
     const { archive: clientData } = state.days;
+    const { daily: clientBudget } = state.budgets;
 
     // 2 merge
     let mergedData = { ...serverData };
@@ -39,10 +37,11 @@ export const syncDataThunk = createAsyncThunk(
       });
     });
     let mergedActions = !isEmpty(serverActions) ? serverActions : clientActions;
+    let mergedBudgets = !isEmpty(serverBudget) ? serverBudget : clientBudget;
 
     // 3 push
     await pushData(user, mergedData, mergedActions);
-    return { data: mergedData, actions: mergedActions };
+    return { data: mergedData, actions: mergedActions, budgets: mergedBudgets };
   },
 );
 
