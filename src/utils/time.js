@@ -30,7 +30,7 @@ export const getLastWeekDays = () => {
   let days = [...new Array(7)];
   return days.map((i, key) =>
     dayjs()
-      .day(key - 7)
+      .day(key)
       .format('M/D/YYYY'),
   );
 };

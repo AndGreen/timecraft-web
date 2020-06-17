@@ -47,7 +47,7 @@ export const LastWeekReport = () => {
 
   return (
     <>
-      <PageTitle>Last week</PageTitle>
+      <PageTitle>Week report</PageTitle>
       {!isEmpty(actions) && (
         <StyledActionsList>
           {actions.map((item) => (
