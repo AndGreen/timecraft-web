@@ -19,3 +19,4 @@ export const {
 } = pickerSlice;
 
 export const selectOpenedPickerName = (state) => state.picker.name;
+export const selectIsPickerOpened = (state) => state.picker.name !== '';

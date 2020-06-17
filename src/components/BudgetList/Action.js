@@ -1,13 +1,20 @@
 import React from 'react';
 import { StyledAction, Text, ActionBudgetInput, Shares } from './styles';
+import {
+  selectDailyBudget,
+  updateDailyBudgetReduce,
+} from '../../reducers/budgets';
+import { useReduxAction } from '../../utils/redux';
+import { useSelector } from 'react-redux';
 
-export const Action = ({ id, editActionId, color, title, count, share }) => {
+export const Action = ({ id, color, title }) => {
+  const updateBudget = useReduxAction(updateDailyBudgetReduce);
+  const budget = useSelector(selectDailyBudget);
   return (
     <>
       <StyledAction color={color}>
         <Text>{title}</Text>
         <Shares>
-          <Text>{count}</Text>
           <ActionBudgetInput
             min="0"
             type="number"
@@ -16,9 +23,9 @@ export const Action = ({ id, editActionId, color, title, count, share }) => {
             onBlur={(e) => {
               const number = Number(e.target.value);
               if (!number) e.target.value = 0;
-              console.log(e.target.value);
+              updateBudget({ id, value: e.target.value });
             }}
-            defaultValue={0}
+            defaultValue={budget[id] || 0}
             onKeyPress={(e) => {
               if (e.key === 'Enter') {
               }

@@ -22,10 +22,12 @@ store.subscribe(() => {
     days: { archive },
     user: { lastEditDate },
     actions: { list },
+    budgets: { daily },
   } = store.getState();
   saveState('actions', list);
   saveState('days', archive);
   saveState('lastEditDate', lastEditDate);
+  saveState('budget', daily);
 });
 
 function App() {

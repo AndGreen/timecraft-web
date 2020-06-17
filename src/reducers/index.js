@@ -5,9 +5,11 @@ import { picker } from './picker';
 import { days } from './days';
 import { user } from './user';
 import { actions } from './actions';
+import { budgets } from './budgets';
 
 export const RootReducer = combineReducers({
   user,
+  budgets,
   blocks,
   colors,
   actions,
