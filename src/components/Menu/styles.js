@@ -38,7 +38,10 @@ export const Item = (props) =>
   props.disabled ? (
     <StyledItem {...props} />
   ) : (
-    <StyledLink activeStyle={{ fontWeight: 'bold', color: theme.colors.main }} {...props} />
+    <StyledLink
+      activeStyle={{ fontWeight: 'bold', color: theme.colors.main }}
+      {...props}
+    />
   );
 
 export const Logout = styled.a`

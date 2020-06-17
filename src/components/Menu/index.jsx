@@ -33,9 +33,7 @@ export const Menu = () => {
         <Item exact to="/">
           Days
         </Item>
-        <Item disabled to="/plan">
-          Budgets
-        </Item>
+        <Item to="/budgets">Budgets</Item>
         <Item to="/reports">Reports</Item>
       </MenuLeft>
       <MenuRight>

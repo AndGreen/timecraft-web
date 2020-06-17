@@ -11,6 +11,7 @@ import { AuthProvider } from './components/AuthProvider';
 import { Day } from './pages/days';
 import { Actions } from './pages/actions';
 import { Reports } from './pages/reports';
+import { Budgets } from './pages/budgets';
 
 const store = configureStore({
   reducer: RootReducer,
@@ -36,6 +37,7 @@ function App() {
             <Switch>
               <Route path="/actions" component={Actions} />
               <Route path="/reports" component={Reports} />
+              <Route path="/budgets" component={Budgets} />
               <Route path="/" component={Day} />
             </Switch>
           </Router>
