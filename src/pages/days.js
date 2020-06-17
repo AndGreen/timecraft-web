@@ -5,6 +5,8 @@ import { DatePicker } from '../components/DatePicker';
 import { DayGrid } from '../components/DayGrid';
 import { Page } from '../components/Page';
 import { ActionPicker } from '../components/ActionPicker';
+import { BudgetList } from '../components/BudgetList';
+import { DailyBudget } from '../components/DailyBudget';
 
 const numOnLines = 8;
 const numOfBlocksInLine = 9;
@@ -41,5 +43,6 @@ export const Day = () => (
     }
   >
     <DayGrid days={days} />
+    <DailyBudget />
   </Page>
 );
