@@ -17,4 +17,6 @@ export const PageActions = styled.div`
   padding-bottom: 24px;
 `;
 
-export const PageContent = styled.div``;
+export const PageContent = styled.div`
+  opacity: ${(p) => p.opacity && 0.1};
+`;

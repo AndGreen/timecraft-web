@@ -8,7 +8,11 @@ const budgetSlice = createSlice({
   },
   reducers: {
     updateDailyBudgetReduce: (state, action) => {
-      state.daily[action.payload.id] = action.payload.value;
+      const { id, value } = action.payload;
+      if (Number(value)) state.daily[id] = value;
+      else {
+        delete state.daily[id];
+      }
     },
   },
 });

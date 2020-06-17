@@ -7,8 +7,11 @@ import {
   PageContent,
 } from './styles';
 import { Menu } from '../Menu';
+import { useSelector } from 'react-redux';
+import { selectIsPickerOpened } from '../../reducers/picker';
 
 export const Page = (props) => {
+  const isPickerOpened = useSelector(selectIsPickerOpened);
   return (
     <PageWrapper>
       <Menu />
@@ -16,7 +19,7 @@ export const Page = (props) => {
         <PageTitle>{props.title}</PageTitle>
         {props.action && <PageActions>{props.action}</PageActions>}
       </PageHead>
-      <PageContent>{props.children}</PageContent>
+      <PageContent opacity={isPickerOpened}>{props.children}</PageContent>
     </PageWrapper>
   );
 };

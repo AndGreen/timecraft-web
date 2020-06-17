@@ -1,9 +1,6 @@
 import styled from 'styled-components';
 import { theme } from '../../styles';
 
-export const Wrapper = styled.div`
-  opacity: ${(p) => p.disabled && 0.1};
-`;
 export const StyledActionsList = styled.div`
   margin-top: 8px;
 `;
@@ -52,12 +49,28 @@ export const BudgetCount = styled(Text)`
   opacity: 0.3;
 `;
 
-export const DoneBadge = styled.div`
-  margin-top: 18px;
-  width: 275px;
+const Badge = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 26px;
+  width: 295px;
   margin-left: 64px;
-  padding: 10px 20px;
+  height: 36px;
+  padding-left: 20px;
+`;
+
+export const DoneBadge = styled(Badge)`
   color: #67ac5c;
   border: 1px solid #67ac5c;
   background: rgba(51, 60, 55, 1);
+`;
+
+export const BudgetButton = styled(Badge)`
+  margin-top: 10px;
+  cursor: pointer;
+  text-align: right;
+  color: ${theme.colors.font};
+  justify-content: center;
+  padding-left: 0;
 `;

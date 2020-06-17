@@ -2,7 +2,6 @@ import React from 'react';
 import { DayGridWrapper, Line, Label } from './styles';
 import { DayBlock } from '../DayBlock';
 import { useSelector } from 'react-redux';
-import { selectOpenedPickerName } from '../../reducers/picker';
 import { useCurrentBlockRerender } from '../../utils/hooks';
 import { selectActions } from '../../reducers/actions';
 
@@ -26,15 +25,13 @@ const getColorListByActions = (actions) => {
 };
 
 export const DayGrid = ({ days }) => {
-  const openedPicker = useSelector(selectOpenedPickerName);
-  const isPickerOpened = openedPicker !== '';
   const actions = useSelector(selectActions);
   const colorsMap = getColorListByActions(actions);
 
   useCurrentBlockRerender();
 
   return (
-    <DayGridWrapper disabled={isPickerOpened}>
+    <DayGridWrapper>
       {days.map((line, lineNum) => (
         <Line key={`day-line-${lineNum}`}>
           <Label>{linesLabels[lineNum]}</Label>
