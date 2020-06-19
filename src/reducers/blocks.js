@@ -16,7 +16,7 @@ const blocksSlice = createSlice({
 
 export const {
   reducer: blocks,
-  actions: { updateCurrent: updateCurrentAction },
+  actions: { updateCurrent: updateCurrentReduce },
 } = blocksSlice;
 
 export const selectCurrentBlockId = (state) => state.blocks.current;

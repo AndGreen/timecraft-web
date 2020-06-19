@@ -4,7 +4,7 @@ import { Title } from '../components/Title';
 import { DatePicker } from '../components/DatePicker';
 import { DayGrid } from '../components/DayGrid';
 import { Page } from '../components/Page';
-import { ActionPicker } from '../components/ActionPicker';
+import { RoutinePicker } from '../components/RoutinePicker';
 import { DailyBudget } from '../components/DailyBudget';
 
 const numOnLines = 8;
@@ -33,7 +33,7 @@ export const Day = () => (
     action={
       <ActionBar>
         <LeftAction>
-          <ActionPicker />
+          <RoutinePicker />
         </LeftAction>
         <RightAction>
           <DatePicker />

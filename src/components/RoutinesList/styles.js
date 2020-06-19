@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import { theme } from '../../styles';
 
-export const StyledActionsList = styled.div`
+export const StyledRoutinesList = styled.div`
   border: 1px solid ${theme.colors.border};
 `;
 
-export const StyledAction = styled.div`
+export const StyledRoutine = styled.div`
   position: relative;
   display: flex;
   justify-content: space-between;
@@ -33,17 +33,17 @@ export const StyledAction = styled.div`
   }
 `;
 
-export const ActionMenu = styled.div`
+export const RoutineMenu = styled.div`
   display: flex;
 `;
-export const ActionMenuItem = styled.div`
+export const RoutineMenuItem = styled.div`
   padding-right: 15px;
   font-size: 12px;
   color: ${(p) => (p.cancelType ? theme.colors.contrast : theme.colors.main)};
   cursor: pointer;
 `;
 
-export const ActionTitleInput = styled.input`
+export const RoutineTitleInput = styled.input`
   background: none;
   padding: 0;
   border: none;
@@ -52,7 +52,7 @@ export const ActionTitleInput = styled.input`
   margin-right: 15px;
 `;
 
-export const NewActionButton = styled.div`
+export const NewRoutineButton = styled.div`
   flex: 1;
   display: flex;
   justify-content: center;

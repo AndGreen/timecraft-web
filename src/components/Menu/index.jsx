@@ -2,7 +2,7 @@ import React from 'react';
 import { firebase } from '../../api/firebase';
 import { LoginPicker } from '../LoginPicker';
 import { useSelector } from 'react-redux';
-import { selectProfile, setProfileAction } from '../../reducers/user';
+import { selectProfile, setProfileReduce } from '../../reducers/user';
 import { useReduxAction } from '../../utils/redux';
 import {
   StyledMenu,
@@ -14,7 +14,7 @@ import {
 } from './styles';
 
 export const Menu = () => {
-  const setUserProfile = useReduxAction(setProfileAction);
+  const setUserProfile = useReduxAction(setProfileReduce);
   const profile = useSelector(selectProfile);
   const getInitials = (name) => {
     if (typeof name === 'string') {
@@ -29,7 +29,7 @@ export const Menu = () => {
   return (
     <StyledMenu>
       <MenuLeft>
-        <Item to="/actions">Actions</Item>
+        <Item to="/routines">Routines</Item>
         <Item exact to="/">
           Days
         </Item>

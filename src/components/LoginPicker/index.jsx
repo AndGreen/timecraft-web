@@ -4,19 +4,19 @@ import { useReduxAction } from '../../utils/redux';
 import { Wrapper, Component, Popup, Title } from './styles';
 import {
   selectOpenedPickerName,
-  togglePickerNameAction,
+  togglePickerNameReduce,
 } from '../../reducers/picker';
 import { firebase } from '../../api/firebase';
-import { setProfileAction } from '../../reducers/user';
+import { setProfileReduce } from '../../reducers/user';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 
 const firebaseui = require('firebaseui');
 
 export const LoginPicker = () => {
-  const setUserProfile = useReduxAction(setProfileAction);
+  const setUserProfile = useReduxAction(setProfileReduce);
   const pickerName = 'login';
   const openedPicker = useSelector(selectOpenedPickerName);
-  const togglePickerStatus = useReduxAction(togglePickerNameAction);
+  const togglePickerStatus = useReduxAction(togglePickerNameReduce);
   const isOpened = openedPicker === pickerName;
 
   useEffect(() => {

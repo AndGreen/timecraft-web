@@ -1,22 +1,22 @@
 import { useEffect, useCallback, useRef } from 'react';
 import { v4 as uuid } from 'uuid';
-import { updateCurrentAction } from '../reducers/blocks';
+import { updateCurrentReduce } from '../reducers/blocks';
 import { useRedux, useReduxAction } from './redux';
 import { blockDuration, nearBlockDiff } from './time';
 import {
   selectOpenedPickerName,
-  togglePickerNameAction,
+  togglePickerNameReduce,
 } from '../reducers/picker';
 import { useSelector } from 'react-redux';
 import { colors } from '../types/colors';
 import {
-  selectActions,
-  setActionsReduce,
-  setEditActionIdReduce,
-} from '../reducers/actions';
+  selectRoutines,
+  setRoutinesReduce,
+  setEditRoutineIdReduce,
+} from '../reducers/routines';
 
 export const useCurrentBlockRerender = () => {
-  const updateCurrentBlock = useReduxAction(updateCurrentAction);
+  const updateCurrentBlock = useReduxAction(updateCurrentReduce);
 
   useEffect(() => {
     setTimeout(() => {
@@ -29,7 +29,7 @@ export const useCurrentBlockRerender = () => {
 };
 
 export const usePickerCloseOutsideClick = (ref, pickerName) => {
-  const togglePickerStatus = useReduxAction(togglePickerNameAction);
+  const togglePickerStatus = useReduxAction(togglePickerNameReduce);
   const openedPickerName = useSelector(selectOpenedPickerName);
   useEffect(() => {
     const listener = (event) => {
@@ -49,23 +49,23 @@ export const usePickerCloseOutsideClick = (ref, pickerName) => {
   }, [openedPickerName]);
 };
 
-export const useCreateNewAction = () => {
-  const [actions, setActions] = useRedux(selectActions, setActionsReduce);
-  const setEditActionId = useReduxAction(setEditActionIdReduce);
+export const useCreateNewRoutine = () => {
+  const [routines, setRoutines] = useRedux(selectRoutines, setRoutinesReduce);
+  const setEditRoutineId = useReduxAction(setEditRoutineIdReduce);
 
-  const newActionId = uuid();
+  const newRoutineId = uuid();
 
   return () => {
-    setActions([
-      ...actions,
+    setRoutines([
+      ...routines,
       {
-        id: newActionId,
-        title: 'new action',
+        id: newRoutineId,
+        title: 'new routine',
         color: colors.grey,
         isNew: true,
       },
     ]);
-    setEditActionId(newActionId);
+    setEditRoutineId(newRoutineId);
   };
 };
 

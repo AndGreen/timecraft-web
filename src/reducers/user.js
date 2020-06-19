@@ -12,14 +12,14 @@ export const syncDataThunk = createAsyncThunk(
     // 1 pull
     const pullData = await pullDataRest(user);
 
-    const { data: serverData, syncDate, actions, budget } = pullData.exists
+    const { data: serverData, syncDate, routines, budget } = pullData.exists
       ? pullData.data()
       : {};
-    const serverActions = actions || [];
+    const serverRoutines = routines || [];
     const serverBudget = budget || {};
 
     const { lastEditDate } = state.user;
-    const { list: clientActions } = state.actions;
+    const { list: clientRoutines } = state.routines;
     const { archive: clientData } = state.days;
     const { daily: clientBudget } = state.budgets;
 
@@ -36,12 +36,12 @@ export const syncDataThunk = createAsyncThunk(
         return clientBlock;
       });
     });
-    let mergedActions = !isEmpty(serverActions) ? serverActions : clientActions;
+    let mergedRoutines = !isEmpty(serverRoutines) ? serverRoutines : clientRoutines;
     let mergedBudgets = !isEmpty(serverBudget) ? serverBudget : clientBudget;
 
     // 3 push
-    await pushData(user, mergedData, mergedActions);
-    return { data: mergedData, actions: mergedActions, budgets: mergedBudgets };
+    await pushData(user, mergedData, mergedRoutines);
+    return { data: mergedData, routines: mergedRoutines, budgets: mergedBudgets };
   },
 );
 
@@ -56,7 +56,7 @@ const userSlice = createSlice({
   },
   extraReducers: {
     // Todo: import reducer type
-    'days/setBlockActionReduce': (state, action) => {
+    'days/setBlockRoutineReduce': (state, action) => {
       state.lastEditDate = new Date().toISOString();
     },
   },
@@ -64,7 +64,7 @@ const userSlice = createSlice({
 
 export const {
   reducer: user,
-  actions: { setProfile: setProfileAction },
+  actions: { setProfile: setProfileReduce },
 } = userSlice;
 
 export const selectProfile = (state) => state.user.profile;

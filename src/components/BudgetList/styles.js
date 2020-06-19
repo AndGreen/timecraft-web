@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import { theme } from '../../styles';
 
-export const StyledActionsList = styled.div``;
+export const StyledRoutinesList = styled.div``;
 
-export const StyledAction = styled.div`
+export const StyledRoutine = styled.div`
   position: relative;
   display: flex;
   justify-content: space-between;
@@ -49,7 +49,7 @@ export const PageTitle = styled.div`
   color: ${theme.colors.main};
 `;
 
-export const ActionBudgetInput = styled.input`
+export const RoutineBudgetInput = styled.input`
   background: none;
   padding: 0;
   border: none;

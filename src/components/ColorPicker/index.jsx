@@ -3,11 +3,11 @@ import { colors, removedColor } from '../../types/colors';
 import { useSelector } from 'react-redux';
 import { useReduxAction } from '../../utils/redux';
 import {
-  changeActiveColorAction,
+  changeActiveColorRoutine,
   selectActiveColor,
 } from '../../reducers/colors';
 import {
-  togglePickerNameAction,
+  togglePickerNameReduce,
   selectOpenedPickerName,
 } from '../../reducers/picker';
 import { Wrapper, Component, ColorList, ColorBlock } from './styles';
@@ -15,11 +15,11 @@ import { Wrapper, Component, ColorList, ColorBlock } from './styles';
 export const ColorPicker = () => {
   const pickerName = 'color';
   const openedPicker = useSelector(selectOpenedPickerName);
-  const togglePickerStatus = useReduxAction(togglePickerNameAction);
+  const togglePickerStatus = useReduxAction(togglePickerNameReduce);
   const isOpened = openedPicker === pickerName;
 
   const activeColor = useSelector(selectActiveColor);
-  const changeActiveColor = useReduxAction(changeActiveColorAction);
+  const changeActiveColor = useReduxAction(changeActiveColorRoutine);
 
   return (
     <Wrapper>

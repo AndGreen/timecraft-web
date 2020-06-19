@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyledAction, Text, ActionBudgetInput, Shares } from './styles';
+import { StyledRoutine, Text, RoutineBudgetInput, Shares } from './styles';
 import {
   selectDailyBudget,
   updateBudgetThunk,
@@ -8,16 +8,16 @@ import {
 import { useReduxAction } from '../../utils/redux';
 import { useSelector } from 'react-redux';
 
-export const Action = ({ id, color, title }) => {
+export const Routine = ({ id, color, title }) => {
   const updateBudget = useReduxAction(updateDailyBudgetReduce);
   const updateBudgetAsync = useReduxAction(updateBudgetThunk);
   const budget = useSelector(selectDailyBudget);
   return (
     <>
-      <StyledAction color={color}>
+      <StyledRoutine color={color}>
         <Text>{title}</Text>
         <Shares>
-          <ActionBudgetInput
+          <RoutineBudgetInput
             min="0"
             type="number"
             maxLength="2"
@@ -35,7 +35,7 @@ export const Action = ({ id, color, title }) => {
             }}
           />
         </Shares>
-      </StyledAction>
+      </StyledRoutine>
     </>
   );
 };

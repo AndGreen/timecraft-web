@@ -9,7 +9,7 @@ import { saveState } from './utils/localstorage';
 import { DataProvider } from './components/DataProvider';
 import { AuthProvider } from './components/AuthProvider';
 import { Day } from './pages/days';
-import { Actions } from './pages/actions';
+import { Routines } from './pages/routines';
 import { Reports } from './pages/reports';
 import { Budgets } from './pages/budgets';
 
@@ -21,10 +21,10 @@ store.subscribe(() => {
   const {
     days: { archive },
     user: { lastEditDate },
-    actions: { list },
+    routines: { list },
     budgets: { daily },
   } = store.getState();
-  saveState('actions', list);
+  saveState('routines', list);
   saveState('days', archive);
   saveState('lastEditDate', lastEditDate);
   saveState('budget', daily);
@@ -37,7 +37,7 @@ function App() {
         <DataProvider>
           <Router>
             <Switch>
-              <Route path="/actions" component={Actions} />
+              <Route path="/routines" component={Routines} />
               <Route path="/reports" component={Reports} />
               <Route path="/budgets" component={Budgets} />
               <Route path="/" component={Day} />

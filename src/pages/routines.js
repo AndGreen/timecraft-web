@@ -1,12 +1,12 @@
 import React from 'react';
 import { Title } from '../components/Title';
 import { Page } from '../components/Page';
-import { ActionsList } from '../components/ActionsList';
+import { RoutinesList } from '../components/RoutinesList';
 
-export const Actions = () => {
+export const Routines = () => {
   return (
     <Page title={<Title>Timecraft</Title>}>
-      <ActionsList />
+      <RoutinesList />
     </Page>
   );
 };

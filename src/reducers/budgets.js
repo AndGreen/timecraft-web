@@ -4,7 +4,7 @@ import { updateBudget } from '../api/firebase';
 import { syncDataThunk } from './user';
 
 export const updateBudgetThunk = createAsyncThunk(
-  '/actions/update',
+  '/budgets/update',
   async (_, ThunkAPI) => {
     const state = ThunkAPI.getState();
     const {

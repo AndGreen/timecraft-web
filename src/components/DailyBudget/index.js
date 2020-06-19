@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { isEmpty } from 'lodash';
 import { useSelector } from 'react-redux';
-import { selectActions } from '../../reducers/actions';
-import { Action } from './Action';
-import { StyledActionsList, DoneBadge, BudgetButton } from './styles';
+import { selectRoutines } from '../../reducers/routines';
+import { Routine } from './Routine';
+import { StyledRoutinesList, DoneBadge, BudgetButton } from './styles';
 import { selectDailyBudget } from '../../reducers/budgets';
 import { selectActiveDay, selectArchive } from '../../reducers/days';
 import { useHistory } from 'react-router-dom';
 
 export const DailyBudget = () => {
-  const actions = useSelector(selectActions);
+  const routines = useSelector(selectRoutines);
   const budget = useSelector(selectDailyBudget);
   const activeDay = useSelector(selectActiveDay);
   const archive = useSelector(selectArchive);
@@ -21,8 +21,8 @@ export const DailyBudget = () => {
   useEffect(() => {
     if (budgetLength) {
       const newCounts = { ...counts };
-      actions.forEach((action) => {
-        if (budget[action.id]) newCounts[action.id] = 0;
+      routines.forEach((routine) => {
+        if (budget[routine.id]) newCounts[routine.id] = 0;
       });
       archive[activeDay].forEach((block) => {
         if (newCounts[block] >= 0) {
@@ -48,12 +48,12 @@ export const DailyBudget = () => {
     );
   if (done === budgetLength) return <DoneBadge>Well done!</DoneBadge>;
   return (
-    !isEmpty(actions) && (
-      <StyledActionsList>
-        {actions.map((item) => {
+    !isEmpty(routines) && (
+      <StyledRoutinesList>
+        {routines.map((item) => {
           if (budget[item.id])
             return (
-              <Action
+              <Routine
                 key={item.id}
                 {...item}
                 count={counts[item.id]}
@@ -61,7 +61,7 @@ export const DailyBudget = () => {
               />
             );
         })}
-      </StyledActionsList>
+      </StyledRoutinesList>
     )
   );
 };

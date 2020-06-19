@@ -15,7 +15,7 @@ const daysSlice = createSlice({
     },
   },
   reducers: {
-    setActiveDayAction: (state, action) => {
+    setActiveDayRoutine: (state, action) => {
       const selectedDay = action.payload;
       return {
         ...state,
@@ -26,12 +26,12 @@ const daysSlice = createSlice({
         },
       };
     },
-    setBlockActionReduce: (state, action) => {
+    setBlockRoutineReduce: (state, action) => {
       state.archive = {
         ...state.archive,
         [state.active]: state.archive[state.active].map((item, id) => {
           if (id === action.payload.id) {
-            return action.payload.action ? action.payload.action : 'removed';
+            return action.payload.routine ? action.payload.routine : 'removed';
           }
           return item;
         }),
@@ -48,12 +48,12 @@ const daysSlice = createSlice({
 
 export const {
   reducer: days,
-  actions: { setActiveDayAction, setBlockActionReduce },
+  actions: { setActiveDayRoutine, setBlockRoutineReduce },
 } = daysSlice;
 
 export const selectActiveDay = (state) => state.days.active;
-export const selectActiveDayActions = (state) =>
+export const selectActiveDayRoutines = (state) =>
   state.days.archive[state.days.active];
-export const selectBlockAction = (id) => (state) =>
-  selectActiveDayActions(state)[id];
+export const selectBlockRoutine = (id) => (state) =>
+  selectActiveDayRoutines(state)[id];
 export const selectArchive = (state) => state.days.archive;

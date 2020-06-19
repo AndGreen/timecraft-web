@@ -3,47 +3,47 @@ import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useReduxAction } from '../../utils/redux';
 import {
-  togglePickerNameAction,
+  togglePickerNameReduce,
   selectOpenedPickerName,
 } from '../../reducers/picker';
 import {
-  selectActions,
-  selectActiveAction,
-  setActiveActionReduce,
-} from '../../reducers/actions';
+  selectRoutines,
+  selectActiveRoutine,
+  setActiveRoutineReduce,
+} from '../../reducers/routines';
 import {
   Wrapper,
   Component,
   Popup,
-  StyledActionsList,
+  StyledRoutinesList,
   CancelBtn,
   Text,
 } from './styles';
-import { NewActionButton, StyledAction } from '../ActionsList/styles';
+import { NewRoutineButton, StyledRoutine } from '../RoutinesList/styles';
 import { isEmpty } from 'lodash';
 import {
-  useCreateNewAction,
+  useCreateNewRoutine,
   usePickerCloseOutsideClick,
 } from '../../utils/hooks';
 
-const emptyAction = {
+const emptyRoutine = {
   id: 'removed',
   color: null,
-  title: 'Empty action',
+  title: 'Empty routine',
 };
 
-export const ActionPicker = () => {
-  const pickerName = 'actions';
+export const RoutinePicker = () => {
+  const pickerName = 'routines';
   const openedPicker = useSelector(selectOpenedPickerName);
-  const togglePickerStatus = useReduxAction(togglePickerNameAction);
+  const togglePickerStatus = useReduxAction(togglePickerNameReduce);
   const isOpened = openedPicker === pickerName;
 
   const history = useHistory();
 
-  const actions = useSelector(selectActions);
-  const activeAction = useSelector(selectActiveAction);
-  const setActiveAction = useReduxAction(setActiveActionReduce);
-  const createNewAction = useCreateNewAction();
+  const routines = useSelector(selectRoutines);
+  const activeRoutine = useSelector(selectActiveRoutine);
+  const setActiveRoutine = useReduxAction(setActiveRoutineReduce);
+  const createNewRoutine = useCreateNewRoutine();
 
   const pickerRef = useRef(null);
   const closeBtnRef = useRef(null);
@@ -53,19 +53,19 @@ export const ActionPicker = () => {
     <Wrapper ref={pickerRef}>
       <Component
         opened={isOpened}
-        color={activeAction.color}
+        color={activeRoutine.color}
         onClick={(e) => {
           if (!closeBtnRef.current || !closeBtnRef.current.contains(e.target)) {
             togglePickerStatus(pickerName);
           }
         }}
       >
-        <Text>{activeAction.title || emptyAction.title}</Text>
-        {!isEmpty(activeAction) && activeAction.id !== emptyAction.id && (
+        <Text>{activeRoutine.title || emptyRoutine.title}</Text>
+        {!isEmpty(activeRoutine) && activeRoutine.id !== emptyRoutine.id && (
           <CancelBtn
             ref={closeBtnRef}
             onClick={() => {
-              setActiveAction(emptyAction);
+              setActiveRoutine(emptyRoutine);
               if (openedPicker) togglePickerStatus(pickerName);
             }}
           />
@@ -73,32 +73,32 @@ export const ActionPicker = () => {
       </Component>
       {isOpened && (
         <Popup>
-          {isEmpty(actions) ? (
-            <NewActionButton
+          {isEmpty(routines) ? (
+            <NewRoutineButton
               border
               onClick={() => {
-                createNewAction();
-                history.push('/actions');
+                createNewRoutine();
+                history.push('/routines');
                 togglePickerStatus(pickerName);
               }}
             >
-              + new actions
-            </NewActionButton>
+              + new routines
+            </NewRoutineButton>
           ) : (
-            <StyledActionsList>
-              {actions.map((item) => (
-                <StyledAction
+            <StyledRoutinesList>
+              {routines.map((item) => (
+                <StyledRoutine
                   key={item.id}
                   onClick={() => {
-                    setActiveAction(item);
+                    setActiveRoutine(item);
                     togglePickerStatus(pickerName);
                   }}
                   color={item.color}
                 >
                   {item.title}
-                </StyledAction>
+                </StyledRoutine>
               ))}
-            </StyledActionsList>
+            </StyledRoutinesList>
           )}
         </Popup>
       )}

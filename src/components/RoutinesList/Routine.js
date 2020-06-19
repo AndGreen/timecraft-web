@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { colors } from '../../types/colors';
 import {
-  ActionTitleInput,
-  ActionMenu,
-  ActionMenuItem,
-  StyledAction,
+  RoutineTitleInput,
+  RoutineMenu,
+  RoutineMenuItem,
+  StyledRoutine,
   ColorList,
   ColorBlock,
-  Text
+  Text,
 } from './styles';
 
 const focusRef = (ref) => {
@@ -15,9 +15,9 @@ const focusRef = (ref) => {
   ref.current && ref.current.select();
 };
 
-export const Action = ({
+export const Routine = ({
   id,
-  editActionId,
+  editRoutineId,
   color,
   title,
   isNew,
@@ -26,80 +26,80 @@ export const Action = ({
   onRemove,
   onSave,
 }) => {
-  const isEdit = id === editActionId;
+  const isEdit = id === editRoutineId;
   const inputRef = useRef(null);
-  const [newAction, setNewAction] = useState({ id, title, color });
+  const [newRoutine, setNewRoutine] = useState({ id, title, color });
 
   useEffect(() => {
     if (isEdit) focusRef(inputRef);
   }, [isEdit]);
 
   const renderMenu = () => {
-    if (editActionId && isEdit) {
+    if (editRoutineId && isEdit) {
       return (
-        <ActionMenu>
-          <ActionMenuItem
+        <RoutineMenu>
+          <RoutineMenuItem
             onClick={() => {
               isNew ? onRemove() : onCancel();
             }}
             cancelType
           >
             cancel
-          </ActionMenuItem>
-          <ActionMenuItem
+          </RoutineMenuItem>
+          <RoutineMenuItem
             onClick={() => {
-              onSave(newAction);
+              onSave(newRoutine);
             }}
           >
             save
-          </ActionMenuItem>
-        </ActionMenu>
+          </RoutineMenuItem>
+        </RoutineMenu>
       );
     }
-    if (!editActionId && !isEdit) {
+    if (!editRoutineId && !isEdit) {
       return (
-        <ActionMenu>
-          <ActionMenuItem
+        <RoutineMenu>
+          <RoutineMenuItem
             onClick={() => {
               onRemove();
             }}
             cancelType
           >
             remove
-          </ActionMenuItem>
-          <ActionMenuItem
+          </RoutineMenuItem>
+          <RoutineMenuItem
             onClick={() => {
               onEdit();
             }}
           >
             edit
-          </ActionMenuItem>
-        </ActionMenu>
+          </RoutineMenuItem>
+        </RoutineMenu>
       );
     }
     return null;
   };
   return (
     <>
-      <StyledAction color={newAction.color}>
+      <StyledRoutine color={newRoutine.color}>
         {isEdit ? (
-          <ActionTitleInput
+          <RoutineTitleInput
             onChange={(e) => {
-              setNewAction({ ...newAction, title: e.currentTarget.value });
+              setNewRoutine({ ...newRoutine, title: e.currentTarget.value });
             }}
             ref={inputRef}
             defaultValue={title}
             onKeyPress={(e) => {
               if (e.key === 'Enter') {
-                onSave(newAction);
+                onSave(newRoutine);
               }
             }}
           />
         ) : (
-          <Text>{newAction.title}</Text>
+          <Text>{newRoutine.title}</Text>
         )}
         {renderMenu()}
-      </StyledAction>
+      </StyledRoutine>
       {isEdit && (
         <ColorList>
           {Object.keys(colors).map((colorName) => (
@@ -108,7 +108,7 @@ export const Action = ({
               color={colors[colorName]}
               onClick={() => {
                 focusRef(inputRef);
-                setNewAction({ ...newAction, color: colors[colorName] });
+                setNewRoutine({ ...newRoutine, color: colors[colorName] });
               }}
             />
           ))}

@@ -5,19 +5,19 @@ import { Wrapper, Component, StyledDayPicker } from './styles';
 import DayPicker  from 'react-day-picker';
 import {
   selectOpenedPickerName,
-  togglePickerNameAction,
+  togglePickerNameReduce,
 } from '../../reducers/picker';
-import { selectActiveDay, setActiveDayAction } from '../../reducers/days';
+import { selectActiveDay, setActiveDayRoutine } from '../../reducers/days';
 import { isToday } from '../../utils/time';
 import { usePickerCloseOutsideClick } from '../../utils/hooks';
 
 export const DatePicker = () => {
   const pickerName = 'date';
   const openedPicker = useSelector(selectOpenedPickerName);
-  const togglePickerStatus = useReduxAction(togglePickerNameAction);
+  const togglePickerStatus = useReduxAction(togglePickerNameReduce);
   const isOpened = openedPicker === pickerName;
 
-  const setSelectedDay = useReduxAction(setActiveDayAction);
+  const setSelectedDay = useReduxAction(setActiveDayRoutine);
   const selectedDayString = useSelector(selectActiveDay);
   const selectedDay = new Date(selectedDayString);
   const selectedDayLocale = selectedDay.toLocaleDateString('en');

@@ -3,7 +3,7 @@ import { DayGridWrapper, Line, Label } from './styles';
 import { DayBlock } from '../DayBlock';
 import { useSelector } from 'react-redux';
 import { useCurrentBlockRerender } from '../../utils/hooks';
-import { selectActions } from '../../reducers/actions';
+import { selectRoutines } from '../../reducers/routines';
 
 const linesLabels = [
   '00:00',
@@ -16,17 +16,17 @@ const linesLabels = [
   '21:00',
 ];
 
-const getColorListByActions = (actions) => {
+const getColorListByRoutines = (routines) => {
   const colors = {};
-  actions.forEach((item) => {
+  routines.forEach((item) => {
     colors[item.id] = item.color;
   });
   return colors;
 };
 
 export const DayGrid = ({ days }) => {
-  const actions = useSelector(selectActions);
-  const colorsMap = getColorListByActions(actions);
+  const routines = useSelector(selectRoutines);
+  const colorsMap = getColorListByRoutines(routines);
 
   useCurrentBlockRerender();
 

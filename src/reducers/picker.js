@@ -15,7 +15,7 @@ const pickerSlice = createSlice({
 
 export const {
   reducer: picker,
-  actions: { togglePickerName: togglePickerNameAction },
+  actions: { togglePickerName: togglePickerNameReduce },
 } = pickerSlice;
 
 export const selectOpenedPickerName = (state) => state.picker.name;

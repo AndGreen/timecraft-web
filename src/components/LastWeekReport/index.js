@@ -1,59 +1,59 @@
 import React, { useEffect, useState } from 'react';
 import { isEmpty } from 'lodash';
 import { useSelector } from 'react-redux';
-import { selectActions } from '../../reducers/actions';
-import { Action } from './Action';
-import { StyledActionsList, PageTitle } from './styles';
+import { selectRoutines } from '../../reducers/routines';
+import { Routine } from './Routine';
+import { StyledRoutinesList, PageTitle } from './styles';
 import { getLastWeekDays } from '../../utils/time';
 import { selectArchive } from '../../reducers/days';
 
 export const LastWeekReport = () => {
-  const actionList = useSelector(selectActions);
-  const [actions, setActions] = useState(
-    actionList.map((action) => ({ ...action, count: 0, share: 0 })),
+  const routineList = useSelector(selectRoutines);
+  const [routines, setRoutines] = useState(
+    routineList.map((routine) => ({ ...routine, count: 0, share: 0 })),
   );
   const archive = useSelector(selectArchive);
 
   useEffect(() => {
     let summary = 0;
     const week = getLastWeekDays();
-    const actionsIds = {};
-    const newActions = [...actions];
-    // actions ids map
-    newActions.forEach((action, key) => {
-      actionsIds[action.id] = key;
+    const routinesIds = {};
+    const newRoutines = [...routines];
+    // routines ids map
+    newRoutines.forEach((routine, key) => {
+      routinesIds[routine.id] = key;
     });
-    // count actions
+    // count routines
     week.forEach((day) => {
       if (archive[day]) {
         archive[day].forEach((block) => {
-          if (block && actionsIds[block] >= 0) {
+          if (block && routinesIds[block] >= 0) {
             summary++;
-            newActions[actionsIds[block]].count++;
+            newRoutines[routinesIds[block]].count++;
           }
         });
       }
     });
     // update shares and sort
     if (summary) {
-      newActions.forEach((action) => {
-        action.share = Math.floor((action.count / summary) * 100);
+      newRoutines.forEach((routine) => {
+        routine.share = Math.floor((routine.count / summary) * 100);
       });
-      newActions.sort((actionA, actionB) => actionB.count - actionA.count);
+      newRoutines.sort((routineA, routineB) => routineB.count - routineA.count);
     }
 
-    setActions(newActions);
+    setRoutines(newRoutines);
   }, []);
 
   return (
     <>
       <PageTitle>Week report</PageTitle>
-      {!isEmpty(actions) && (
-        <StyledActionsList>
-          {actions.map((item) => (
-            <Action key={item.id} {...item} />
+      {!isEmpty(routines) && (
+        <StyledRoutinesList>
+          {routines.map((item) => (
+            <Routine key={item.id} {...item} />
           ))}
-        </StyledActionsList>
+        </StyledRoutinesList>
       )}
     </>
   );

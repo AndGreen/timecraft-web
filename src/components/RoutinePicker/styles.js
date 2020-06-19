@@ -1,7 +1,6 @@
 import styled, { css } from 'styled-components';
 import { theme } from '../../styles';
 import { arrowUpCss, arrowDownCss } from '../Icons/arrow';
-import Cross from '../../assets/images/cross.svg';
 
 export const Wrapper = styled.div`
   position: relative;
@@ -52,7 +51,7 @@ export const Popup = styled.div`
   background: ${theme.colors.background};
 `;
 
-export const StyledActionsList = styled.div`
+export const StyledRoutinesList = styled.div`
   flex: 1;
   cursor: pointer;
   max-height: 313px;

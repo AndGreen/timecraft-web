@@ -15,7 +15,7 @@ const colorSlice = createSlice({
 
 export const {
   reducer: colors,
-  actions: { changeActiveColor: changeActiveColorAction },
+  actions: { changeActiveColor: changeActiveColorRoutine },
 } = colorSlice;
 
 export const selectActiveColor = (state) => state.colors.active;

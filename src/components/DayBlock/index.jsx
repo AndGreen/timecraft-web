@@ -4,19 +4,19 @@ import { useSelector } from 'react-redux';
 import { selectCurrentBlockId } from '../../reducers/blocks';
 import {
   selectActiveDay,
-  setBlockActionReduce,
-  selectBlockAction,
+  setBlockRoutineReduce,
+  selectBlockRoutine,
 } from '../../reducers/days';
 import { useReduxAction } from '../../utils/redux';
 import { isToday, isFuture } from '../../utils/time';
-import { selectActiveAction } from '../../reducers/actions';
+import { selectActiveRoutine } from '../../reducers/routines';
 import { useDoubleTap } from '../../utils/hooks';
 
 export const DayBlock = ({ active, id, colorsMap }) => {
-  const setBlockAction = useReduxAction(setBlockActionReduce);
+  const setBlockRoutine = useReduxAction(setBlockRoutineReduce);
   const currentBlockId = useSelector(selectCurrentBlockId);
-  const blockActionId = useSelector(selectBlockAction(id));
-  const activeAction = useSelector(selectActiveAction);
+  const blockRoutineId = useSelector(selectBlockRoutine(id));
+  const activeRoutine = useSelector(selectActiveRoutine);
   const activeDay = useSelector(selectActiveDay);
 
   const futureDay = isFuture(activeDay);
@@ -27,12 +27,12 @@ export const DayBlock = ({ active, id, colorsMap }) => {
   const onClick = useDoubleTap(
     () => {
       const hour = Math.floor(id / 3) * 3;
-      setBlockAction({ id: hour, action: activeAction.id });
-      setBlockAction({ id: hour + 1, action: activeAction.id });
-      setBlockAction({ id: hour + 2, action: activeAction.id });
+      setBlockRoutine({ id: hour, routine: activeRoutine.id });
+      setBlockRoutine({ id: hour + 1, routine: activeRoutine.id });
+      setBlockRoutine({ id: hour + 2, routine: activeRoutine.id });
     },
     () => {
-      setBlockAction({ id, action: activeAction.id });
+      setBlockRoutine({ id, routine: activeRoutine.id });
     },
   );
 
@@ -40,7 +40,7 @@ export const DayBlock = ({ active, id, colorsMap }) => {
     <DayBlockStyled
       {...onClick}
       future={future}
-      color={colorsMap[blockActionId]}
+      color={colorsMap[blockRoutineId]}
       active={today && currentBlockId === id}
     />
   );

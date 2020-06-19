@@ -4,7 +4,7 @@ import { colors } from './colors';
 import { picker } from './picker';
 import { days } from './days';
 import { user } from './user';
-import { actions } from './actions';
+import { routines } from './routines';
 import { budgets } from './budgets';
 
 export const RootReducer = combineReducers({
@@ -12,7 +12,7 @@ export const RootReducer = combineReducers({
   budgets,
   blocks,
   colors,
-  actions,
+  routines,
   picker,
   days,
 });

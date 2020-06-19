@@ -1,10 +1,10 @@
 import React from 'react';
-import { StyledAction, Text, BudgetCount, Shares } from './styles';
+import { StyledRoutine, Text, BudgetCount, Shares } from './styles';
 
-export const Action = ({ color, title, count, budget }) => {
+export const Routine = ({ color, title, count, budget }) => {
   return (
     <>
-      <StyledAction color={color}>
+      <StyledRoutine color={color}>
         <Text>{title}</Text>
         <Shares>
           <Text>
@@ -12,7 +12,7 @@ export const Action = ({ color, title, count, budget }) => {
             <BudgetCount>/{budget}</BudgetCount>
           </Text>
         </Shares>
-      </StyledAction>
+      </StyledRoutine>
     </>
   );
 };

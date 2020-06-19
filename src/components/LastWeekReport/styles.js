@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import { theme } from '../../styles';
 
-export const StyledActionsList = styled.div``;
+export const StyledRoutinesList = styled.div``;
 
-export const StyledAction = styled.div`
+export const StyledRoutine = styled.div`
   position: relative;
   display: flex;
   justify-content: space-between;
