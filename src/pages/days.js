@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Title } from '../components/Title';
 import { DatePicker } from '../components/DatePicker';
 import { DayGrid } from '../components/DayGrid';
 import { Page } from '../components/Page';
@@ -29,7 +28,6 @@ const RightAction = styled.div``;
 
 export const Day = () => (
   <Page
-    title={<Title>Timecraft</Title>}
     action={
       <ActionBar>
         <LeftAction>
